@@ -156,10 +156,10 @@ GEM
     elastic-transport (8.4.0)
       faraday (< 3)
       multi_json
-    elasticsearch (8.18.0)
+    elasticsearch (9.0.3)
       elastic-transport (~> 8.3)
-      elasticsearch-api (= 8.18.0)
-    elasticsearch-api (8.18.0)
+      elasticsearch-api (= 9.0.3)
+    elasticsearch-api (9.0.3)
       multi_json
     erb (5.0.2)
     erubi (1.13.1)
@@ -649,7 +649,7 @@ DEPENDENCIES
   debug
   devise
   dotenv-rails (~> 2.1, >= 2.1.1)
-  elasticsearch (~> 8.0)
+  elasticsearch (~> 9.0)
   factory_bot_rails
   faker
   friendly_id
