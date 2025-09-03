@@ -59,7 +59,7 @@ gem "sidekiq-cron"
 
 # Search
 gem "searchkick"
-gem "elasticsearch", "~> 8.0"
+gem "elasticsearch", "~> 9.1"
 
 # Payments
 gem "stripe"
