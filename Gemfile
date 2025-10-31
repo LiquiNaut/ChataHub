@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 # Dotenv for environment variables
-gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
+gem 'dotenv-rails', '~> 3.1'
 # Logging with Logstash to Elasticsearch
 gem 'logstash-event', '~> 1.2', '>= 1.2.02'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
