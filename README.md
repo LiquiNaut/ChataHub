@@ -44,18 +44,23 @@ The application is designed with a focus on extensibility and clean code princip
 The project is fully Dockerized for an easy setup.
 
 1. Clone repository
+   ```
    git clone https://github.com/LiquiNaut/ChataHub
    cd chatahub
-
+   ```
 2. Configuration
+   ```bash
    cp .env.example .env
-
+   ```
 3. Build and Run
+   ```
    docker compose up --build
-
+   ```
 4. Database Setup
+   ```
    docker compose exec app bin/rails db:create
    docker compose exec app bin/rails db:migrate
+   ```
 
 The application runs at: `http://localhost:3000`
 

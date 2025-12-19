@@ -38,5 +38,8 @@ module ChataHub
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Use Sidekiq for Active Job
+    config.active_job.queue_adapter = :sidekiq
   end
 end
