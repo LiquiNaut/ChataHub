@@ -32,6 +32,9 @@ WORKDIR /app
 # Skopírovanie zvyšku aplikácie
 COPY . .
 
+# Fix line endings for Windows
+RUN sed -i 's/\r$//' bin/* && chmod +x bin/*
+
 # Spustenie servera
 EXPOSE 3000
 CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
