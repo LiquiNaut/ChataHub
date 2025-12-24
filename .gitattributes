@@ -7,3 +7,15 @@ db/schema.rb linguist-generated
 vendor/* linguist-vendored
 config/credentials/*.yml.enc diff=rails_credentials
 config/credentials.yml.enc diff=rails_credentials
+
+# --- DOCKER & LINUX COMPATIBILITY (CRITICAL FOR WINDOWS) ---
+# Tieto subory musia mat vzdy LF (Linux) konce riadkov, inak Docker padne
+*.sh      text eol=lf
+bin/*     text eol=lf
+Dockerfile text eol=lf
+docker-compose.yml text eol=lf
+Gemfile   text eol=lf
+Gemfile.lock text eol=lf
+
+# Ostatne textove subory nech si Git riesi automaticky
+* text=auto
