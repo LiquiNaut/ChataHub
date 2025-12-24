@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 # Dotenv for environment variables
-gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
+gem "dotenv-rails", "~> 2.1", ">= 2.1.1"
 # Logging with Logstash to Elasticsearch
-gem 'logstash-event', '~> 1.2', '>= 1.2.02'
+gem "logstash-event", "~> 1.2", ">= 1.2.02"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.2"
 # Sprockets for asset management
@@ -12,7 +12,7 @@ gem "propshaft"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.5"
 # Redis for caching, sessions, and Action Cable
-gem 'redis', '~> 5.4'
+gem "redis", "~> 5.4"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 6.4"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
@@ -77,7 +77,7 @@ gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 
 # File Upload & Processing
-gem "image_processing", '~> 1.14'
+gem "image_processing", "~> 1.14"
 gem "aws-sdk-s3", require: false
 
 # Utilities
