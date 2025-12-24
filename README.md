@@ -49,7 +49,7 @@ The project is fully Dockerized for an easy setup.
    cd chatahub
    ```
 2. Configuration
-   ```bash
+   ```
    cp .env.example .env
    ```
 3. Build and Run
