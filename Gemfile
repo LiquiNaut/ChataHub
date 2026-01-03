@@ -97,7 +97,7 @@ group :development, :test do
   gem "database_cleaner-active_record"
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
-  gem "brakeman", require: false
+  # gem "brakeman", require: false
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
@@ -112,7 +112,8 @@ group :development do
   gem "rubocop-rails", require: false
   gem "brakeman", require: false
   gem "bullet"
-  gem "annotate"
+  gem 'annot8', '~> 1.0', '>= 1.0.1'
+  gem "bigdecimal"
 end
 
 group :test do
