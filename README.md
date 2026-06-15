@@ -63,6 +63,11 @@ The project is fully Dockerized for an easy setup.
 
 The application runs at: `http://localhost:3000`.
 
+> **Tip:** the repo ships a [`justfile`](justfile) with shortcuts (install `just` via
+> `sudo apt install just`). E.g. `just up`, `just db-setup`, `just test`, `just lint`,
+> `just ci`, `just sh`. Run `just` to list them. DB-touching recipes run inside the
+> container automatically.
+
 > The `app` and `sidekiq` services wait for healthy `db`, `redis`, and `elasticsearch`
 > containers before booting (Compose healthchecks), so the first `up` won't crash on a
 > not-yet-ready database. Postgres is exposed on host port **5433** to avoid clashing
@@ -82,6 +87,9 @@ bundle exec rspec spec/models/cabin_spec.rb   # one file
 bundle exec rubocop                      # lint (rubocop-rails-omakase)
 bundle exec brakeman                     # security scan
 ```
+
+Or via `just` (runs inside the container, so the DB connects): `just test`,
+`just test spec/models/cabin_spec.rb`, `just lint`, `just brakeman`, `just ci`.
 
 ---
 
