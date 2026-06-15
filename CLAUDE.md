@@ -34,6 +34,18 @@ architecture/design patterns) for the full target design before adding new domai
 - Security scan: `bundle exec brakeman`
 - Annotate model schema comments: `bin/rails annotate` (via the `annot8` gem)
 
+## Workflow
+
+- Default branch is **`master`** (not `main`). Follow **GitHub Flow**: branch off `master`
+  (`feat/…`, `fix/…`, `chore/…`, `docs/…`), open a PR, merge once CI is green. Branch names
+  and commit messages follow **Conventional Commits**. See `CONTRIBUTING.md`.
+- CI (`.github/workflows/ci.yml`) runs three jobs on PRs and pushes to `master`:
+  `scan_ruby` (Brakeman), `scan_js` (`bin/importmap audit`), `lint` (RuboCop). There is
+  **no RSpec job in CI** — run `bundle exec rspec` locally before pushing.
+- JS is wired via **importmap-rails** (`config/importmap.rb`, `app/javascript/application.js`,
+  `bin/importmap`); the layout loads it with `javascript_importmap_tags`. Add packages with
+  `bin/importmap pin <pkg>`, not npm/yarn.
+
 ## Architecture Patterns (per docs/project_structure_patterns.md)
 
 As features are built out, follow these conventions:
@@ -57,7 +69,10 @@ registration), then Reservation core with overlap prevention (TDD).
 
 ## Development Environment
 
-- Docker Compose for services (Postgres, Redis, Elasticsearch) — see `compose.yml`
+- Docker Compose for services (Postgres, Redis, Elasticsearch) — see `compose.yml`. `app`/`sidekiq`
+  wait for healthy dependencies. Postgres is on host port **5433** (dev DB `chata_hub_development`);
+  `bundle exec rspec`/`bin/rails` outside the containers need that DB running or they fail with a
+  Postgres connection/auth error.
 - App code lives in WSL2 filesystem (`~/projects/chatahub`), NOT in `/mnt/c/` — critical for
   I/O performance
 - VSCode + Remote WSL as primary editor
