@@ -2,14 +2,14 @@
 
 **A family cabin reservation system with automated payments and notifications.**
 
-This project solves a real-world problem: the chaos of managing family cabin bookings. It replaces spreadsheets and phone calls with a modern "First Come, First Served" application built on the latest **Ruby on Rails 8**.
+This project solves a real-world problem: the chaos of managing family cabin bookings. It replaces spreadsheets and phone calls with a modern "First Come, First Served" application built on the latest **Ruby on Rails 8.1**.
 
 ---
 
 ## 🛠 Tech Stack
 
-- **Backend:** Ruby 3.4.4, Rails 8 (Service Objects, Concerns)
-- **Frontend:** Hotwire (Turbo & Stimulus), TailwindCSS
+- **Backend:** Ruby 3.4.4, Rails 8.1 (Service Objects, Concerns)
+- **Frontend:** Hotwire (Turbo & Stimulus) via importmap, TailwindCSS 4, Propshaft asset pipeline
 - **Database:** PostgreSQL, Redis (Caching/Jobs)
 - **Search:** Elasticsearch + Searchkick
 - **Integrations:** Stripe (Payments), Twilio (SMS), OpenWeatherMap, ActiveStorage (S3)
@@ -58,17 +58,38 @@ The project is fully Dockerized for an easy setup.
    ```
 4. Database Setup
    ```
-   docker compose exec app bin/rails db:create
-   docker compose exec app bin/rails db:migrate
+   docker compose exec app bin/rails db:create db:migrate
    ```
 
-The application runs at: `http://localhost:3000`
+The application runs at: `http://localhost:3000`.
+
+> The `app` and `sidekiq` services wait for healthy `db`, `redis`, and `elasticsearch`
+> containers before booting (Compose healthchecks), so the first `up` won't crash on a
+> not-yet-ready database. Postgres is exposed on host port **5433** to avoid clashing
+> with a local install. The `.env` file is optional for a basic boot — add it once you
+> need Stripe/Twilio/weather keys (`cp .env.example .env`).
 
 ---
 
 ## 🧪 Testing
 
-The codebase is covered by **RSpec** tests, with a focus on critical business logic (Service Objects).
+The codebase is covered by **RSpec** tests (FactoryBot, Shoulda Matchers), with a focus on
+critical business logic (Service Objects). Bullet flags N+1 queries in both development and test.
+
+```sh
+bundle exec rspec                        # all specs
+bundle exec rspec spec/models/cabin_spec.rb   # one file
+bundle exec rubocop                      # lint (rubocop-rails-omakase)
+bundle exec brakeman                     # security scan
+```
+
+---
+
+## 🤝 Contributing
+
+This repo follows **GitHub Flow** with Conventional Commits. Branch off `master`
+(`feat/…`, `fix/…`, `chore/…`), open a PR, and merge once CI is green. See
+[CONTRIBUTING.md](CONTRIBUTING.md) for the full workflow.
 
 ---
 
