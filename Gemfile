@@ -4,9 +4,7 @@ gem "dotenv-rails", "~> 2.1", ">= 2.1.1"
 # Logging with Logstash to Elasticsearch
 gem "logstash-event", "~> 1.2", ">= 1.2.02"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.2"
-# Sprockets for asset management
-gem "sprockets-rails"
+gem "rails", "~> 8.1.3"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use postgresql as the database for Active Record
@@ -103,6 +101,10 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 end
 
+group :development, :test do
+  gem "bullet"
+end
+
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
@@ -111,7 +113,6 @@ group :development do
   gem "spring-watcher-listen"
   gem "rubocop-rails", require: false
   gem "brakeman", require: false
-  gem "bullet"
   gem 'annot8', '~> 1.0', '>= 1.0.1'
   gem "bigdecimal"
 end
