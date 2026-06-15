@@ -113,7 +113,7 @@ group :development do
   gem "spring-watcher-listen"
   gem "rubocop-rails", require: false
   gem "brakeman", require: false
-  gem 'annot8', '~> 1.0', '>= 1.0.1'
+  gem "annot8", "~> 1.0", ">= 1.0.1"
   gem "bigdecimal"
 end
 
