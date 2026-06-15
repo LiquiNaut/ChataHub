@@ -20,7 +20,9 @@ RUN bundle install
 FROM ruby:3.4.4-alpine AS runner
 
 # Inštalácia run-time závislostí
-RUN apk add --no-cache libpq postgresql-client tzdata
+# vips = runtime knižnica pre image_processing/ruby-vips (ActiveStorage varianty fotiek).
+# Builder má vips-dev (na build gemu), runner potrebuje runtime vips, inak spracovanie fotiek spadne.
+RUN apk add --no-cache libpq postgresql-client tzdata vips
 
 # Skopírovanie závislostí z builder stage
 COPY --from=builder /usr/local/bundle /usr/local/bundle
