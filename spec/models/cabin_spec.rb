@@ -2,11 +2,11 @@
 #
 # Table name: cabins
 #
-#  id              :integer          not null, primary key
-#  name            :string
-#  price_per_night :decimal(, )
+#  id              :bigint           not null, primary key
 #  capacity        :integer
 #  location        :string
+#  name            :string
+#  price_per_night :decimal(, )
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
