@@ -26,6 +26,11 @@ architecture/design patterns) for the full target design before adding new domai
 
 ## Commands
 
+- **Task runner:** a `justfile` wraps the common commands (`just` lists them). Prefer it for dev work:
+  `just up`, `just db-setup`, `just test [path]`, `just lint`, `just ci`, `just sh`, `just console`.
+  DB-touching recipes run **inside the `app` container** (host `db` only resolves on the Docker
+  network — running `bin/rails`/`rspec`/`bin/ci` on the host fails name resolution). Needs `just`
+  (`sudo apt install just`). Raw equivalents below:
 - Run app (Docker): `docker compose up --build`, then `docker compose exec app bin/rails db:create db:migrate`
 - Run all tests: `bundle exec rspec`
 - Run a single test file: `bundle exec rspec spec/models/cabin_spec.rb`

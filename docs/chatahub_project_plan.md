@@ -28,6 +28,7 @@ Ukázať schopnosť navrhnúť, implementovať a nasadiť produkčne pripravenú
 | **Payments**        | Stripe (Apple Pay + Google Pay)              |
 | **Testing**         | RSpec + FactoryBot + SimpleCov               |
 | **CI/CD**           | GitHub Actions                               |
+| **Dev tooling**     | just (task runner) + Docker Compose          |
 
 ---
 
