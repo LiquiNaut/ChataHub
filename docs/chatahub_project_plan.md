@@ -16,7 +16,7 @@ Ukázať schopnosť navrhnúť, implementovať a nasadiť produkčne pripravenú
 
 | Vrstva              | Technológia                                   |
 | ------------------- | --------------------------------------------- |
-| **Ruby/Rails**      | Ruby 3.4.4 + Rails 8                         |
+| **Ruby/Rails**      | Ruby 3.4.4 + Rails 8.1                       |
 | **Frontend**        | Hotwire (Turbo + Stimulus) + Tailwind CSS    |
 | **UI Components**   | Flowbite + TailwindUI                        |
 | **Database**        | PostgreSQL (primárna) + Redis (cache/jobs)   |
@@ -156,7 +156,7 @@ SearchIndexJob
 > "Vyriešil som skutočný problém v našej rodine - plánovanie chaty bolo chaotické, teraz máme automatizovaný systém s platbami."
 
 ### 2. **Modern Rails Stack**
-> "Použil som najnovší Rails 8 s Ruby 3.4.4, Hotwire pre reactive UI, Tailwind CSS s Flowbite komponentmi a Elasticsearch pre pokročilé vyhľadávanie."
+> "Použil som najnovší Rails 8.1 s Ruby 3.4.4, Hotwire pre reactive UI, Tailwind CSS s Flowbite komponentmi a Elasticsearch pre pokročilé vyhľadávanie."
 
 ### 3. **Unique Features**
 > "Implementoval som photo management s ActiveStorage, metaprogramovanie pre dynamické handlery, Elasticsearch search a calendar sync s Apple/Google kalendárom."
@@ -247,7 +247,7 @@ registry:
 | Skill                    | Dôkaz v projekte                           |
 | ------------------------ | ------------------------------------------ |
 | **Business Understanding** | Practical solution, no-refund policy     |
-| **Modern Rails**         | Rails 8, Hotwire, Tailwind + Flowbite    |
+| **Modern Rails**         | Rails 8.1, Hotwire, Tailwind + Flowbite  |
 | **Search & NoSQL**       | Elasticsearch implementation              |
 | **Metaprogramovanie**    | Dynamic handlers, flexible architecture  |
 | **File Management**      | ActiveStorage + cloud integration        |
@@ -259,7 +259,7 @@ registry:
 ## 🔧 **Implementácia Timeline**
 
 ### **Week 1-2: Core Setup**
-- Rails 8 + Ruby 3.4.4 setup
+- Rails 8.1 + Ruby 3.4.4 setup
 - Basic models + migrations
 - Devise authentication
 - Basic UI s Tailwind
