@@ -161,11 +161,11 @@ GEM
     elastic-transport (8.5.2)
       faraday (< 3)
       multi_json
-    elasticsearch (8.19.3)
+    elasticsearch (9.4.2)
       elastic-transport (~> 8.3)
-      elasticsearch-api (= 8.19.3)
-      ostruct
-    elasticsearch-api (8.19.3)
+      elasticsearch-api (= 9.4.2)
+    elasticsearch-api (9.4.2)
+      base64
       multi_json
     erb (6.0.4)
     erubi (1.13.1)
@@ -178,7 +178,7 @@ GEM
       railties (>= 6.1.0)
     faker (3.8.0)
       i18n (>= 1.8.11, < 2)
-    faraday (2.14.2)
+    faraday (2.14.3)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
@@ -663,7 +663,7 @@ DEPENDENCIES
   debug
   devise
   dotenv-rails (~> 2.1, >= 2.1.1)
-  elasticsearch (~> 8.0)
+  elasticsearch (~> 9.4)
   factory_bot_rails
   faker
   friendly_id
