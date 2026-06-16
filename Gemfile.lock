@@ -152,10 +152,10 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.6.2)
     docile (1.4.1)
-    dotenv (2.8.1)
-    dotenv-rails (2.8.1)
-      dotenv (= 2.8.1)
-      railties (>= 3.2)
+    dotenv (3.2.0)
+    dotenv-rails (3.2.0)
+      dotenv (= 3.2.0)
+      railties (>= 6.1)
     drb (2.2.3)
     ed25519 (1.4.0)
     elastic-transport (8.5.2)
@@ -251,17 +251,17 @@ GEM
     json (2.19.9)
     jwt (3.2.0)
       base64
-    kamal (1.9.3)
+    kamal (2.11.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
       bcrypt_pbkdf (~> 1.0)
       concurrent-ruby (~> 1.2)
-      dotenv (~> 2.8)
-      ed25519 (~> 1.2)
-      net-ssh (~> 7.0)
+      dotenv (~> 3.1)
+      ed25519 (~> 1.4)
+      net-ssh (~> 7.3)
       sshkit (>= 1.23.0, < 2.0)
-      thor (~> 1.2)
-      zeitwerk (~> 2.5)
+      thor (~> 1.3)
+      zeitwerk (>= 2.6.18, < 3.0)
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.2)
@@ -662,7 +662,7 @@ DEPENDENCIES
   database_cleaner-active_record
   debug
   devise
-  dotenv-rails (~> 2.1, >= 2.1.1)
+  dotenv-rails (~> 3.2)
   elasticsearch (~> 8.0)
   factory_bot_rails
   faker
