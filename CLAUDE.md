@@ -46,7 +46,7 @@ See the "Technické rozhodnutia" section of `docs/chatahub_project_plan.md` for 
 
 ## Tech Stack
 
-- Ruby 3.4.4, Rails 8.1.x (do NOT upgrade to Ruby 4.0 yet — ecosystem not ready)
+- Ruby 4.0.9 (`.ruby-version`, Dockerfile), Rails 8.1.x
 - PostgreSQL (primary DB), Redis (Sidekiq broker + cache)
 - Hotwire (Turbo + Stimulus) + Tailwind CSS 4.x
 - Propshaft asset pipeline — **no Sprockets** (sprockets-rails + Propshaft together break boot
@@ -138,8 +138,8 @@ registration, roles), then Reservation core with overlap prevention (TDD).
 - App code lives in WSL2 filesystem (`~/projects/chatahub`), NOT in `/mnt/c/` — critical for
   I/O performance
 - VSCode + Remote WSL as primary editor
-- Dockerfile uses `ruby:3.4.4-alpine`; if native gem build issues arise, switch to
-  `ruby:3.4.4-slim` (Debian-based)
+- Dockerfile uses `ruby:4.0.9-alpine`; if native gem build issues arise, switch to
+  `ruby:4.0.9-slim` (Debian-based)
 
 ## Mobile Strategy
 

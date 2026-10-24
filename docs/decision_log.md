@@ -20,6 +20,22 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 
 ---
 
+## 2026-10-24 — Upgrade Ruby 3.4.4 → 4.0.9
+**Typ:** Rozhodnuté · **PR:** #90
+
+**Kontext:** Projekt začínal na Ruby 3.4.4 s poznámkou „Ruby 4.0 zatiaľ nie, ekosystém nie je
+pripravený“ (krátko po vydaní 4.0 v 12/2025). Medzitým vyšlo 9 opravných verzií 4.0.x.
+
+**Rozhodnutie:** Prechod na **Ruby 4.0.9** (`.ruby-version`, Dockerfile). Alternatíva bola 3.4.9
+(len opravy, podpora približne do jari 2028).
+
+**Dôvod:** Skúšobný beh na 4.0.9 prešiel (bundle install, testy, boot Rails). Upgrade je najlacnejší
+teraz, keď má aplikácia jeden model; neskôr by sa preverovalo oveľa viac. Pre nový portfóliový
+projekt je aktuálna stabilná verzia lepší signál.
+
+**Kedy prehodnotiť:** ak by niektorý gem zapájaný v M1/M4 (Devise, Sidekiq joby, Stripe) na 4.0
+nefungoval – CI to ukáže pri danom issue; návrat = zmena `.ruby-version` a Dockerfile.
+
 ## 2026-10-24 — Platobná brána: teraz Stripe (test mód), neskôr prevod + Fio API
 **Typ:** Rozhodnuté · **PR:** #67
 
