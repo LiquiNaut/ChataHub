@@ -25,8 +25,10 @@ There is no `develop` or deploy branch — see [Releases](#releases--deploys).
 Work is split into **GitHub Issues**, grouped into **milestones** (M0, M1, …). One issue = one
 branch = one PR. Use the **Task** issue template; it pre-fills this format:
 
-- **Title** in Conventional Commits style, in English: `<type>(<scope>): <what changes>`,
-  e.g. `feat(reservations): prevent overlapping bookings`.
+- **Title** in Conventional Commits style, in English, with the **type in UPPERCASE** (scope and
+  description lowercase) so it stands out in lists: `TYPE(scope): <what changes>`,
+  e.g. `FEAT(reservations): prevent overlapping bookings`. Commit messages, branch names and labels
+  stay lowercase (`feat(...)`, `feat/12-...`, `feat`).
 - **Label** matching the type (`feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `ci`) and a
   **milestone**.
 - **Body** in Slovak, short and plain, with these sections (drop the ones that don't apply):
@@ -85,7 +87,7 @@ bundle exec brakeman     # no new warnings
 
 The PR template mirrors the issue format, in English: `Closes #<issue>`, **What & why**,
 **Changes**, **Technologies** (if new), **Edge cases**, **Test plan**. The PR title equals the issue
-title. If a stack/architecture decision was made, add an entry to `docs/decision_log.md`.
+title (type in UPPERCASE). If a stack/architecture decision was made, add an entry to `docs/decision_log.md`.
 
 ## Releases & deploys
 

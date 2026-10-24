@@ -1,7 +1,7 @@
 Closes #
 
 <!--
-Title: Conventional Commits style, same as the issue, e.g. `feat(reservations): prevent overlapping bookings`.
+Title: same as the issue — TYPE in UPPERCASE, e.g. `FEAT(reservations): prevent overlapping bookings`.
 Branch: `<type>/<issue-number>-<short-kebab-description>`, e.g. `feat/12-reservation-overlap`.
 Delete sections that don't apply.
 -->

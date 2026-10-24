@@ -1,12 +1,13 @@
 ---
 name: Task
 about: Feature, fix, refactor, chore… — one issue = one branch = one PR
-title: "<type>(<scope>): <what changes, in English>"
+title: "TYPE(scope): <what changes, in English>"
 labels: ""
 ---
 
 <!--
-Title: Conventional Commits style, e.g. `feat(reservations): prevent overlapping bookings`.
+Title: Conventional Commits style with the TYPE in UPPERCASE, scope and description lowercase,
+e.g. `FEAT(reservations): prevent overlapping bookings`.
 Add the matching label (feat / fix / refactor / chore / docs / test / ci) and a milestone.
 Body in Slovak. Delete sections that don't apply (e.g. Technológie when nothing new is added).
 -->
