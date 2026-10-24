@@ -313,31 +313,17 @@ registry:
 
 ---
 
-## 🔧 **Implementácia Timeline**
+## 🔧 **Implementácia – Milestones**
 
-### **Week 1-2: Core Setup**
-- Rails 8.1 + Ruby 3.4.4 setup
-- Basic models + migrations
-- Devise authentication
-- Basic UI s Tailwind
+Práca je rozdelená na [GitHub milestones a issues](https://github.com/LiquiNaut/ChataHub/milestones)
+(postup v `CONTRIBUTING.md`). Každý dokončený milestone = release s tagom.
 
-### **Week 3-4: Core Features**
-- Reservation system + calendar UI
-- Payment integration (Stripe)
-- SMS notifications (Twilio)
-- Photo upload + management
-
-### **Week 5-6: Advanced Features**
-- Metaprogramovanie patterns
-- Weather API integration
-- Calendar sync (Apple/Google)
-
-### **Week 7-8: Polish & Deploy**
-- Food board functionality
-- Dark mode + UI polish
-- Simple analytics dashboard
-- Docker + Kamal deployment
-
----
-
-**Chceš začať s implementáciou? Môžem ti pripraviť initial Rails setup s všetkými gemami a Docker konfiguráciou!** 🚀
+| Milestone | Obsah | Release |
+| --- | --- | --- |
+| **M0 – Upratanie a základy** | Cabin úpravy, RSpec v CI, šablóny issues/PR | — |
+| **M1 – Používatelia** | Devise User, pozvánky (`devise_invitable`), roly, Pundit | `v0.1.0` |
+| **M2 – Rezervácie** | Reservation, exclusion constraint, zrušenie, no-show, kalendár | `v0.2.0` |
+| **M3 – Prvý deploy** | produkčný Docker, Kamal, VPS, doména, HTTPS, zálohy, CD z tagu | `v0.3.0` |
+| **M4 – Platby** | Stripe (test mód), webhooky, splatnosť, blokovanie nezaplatených | `v0.4.0` |
+| **M5 – UX a notifikácie** | živý kalendár (Turbo Streams), iCal feed, e-maily | — |
+| **M6 – Bonusy** | fotky, nástenka, počasie, štatistiky, PWA, Fio prevody | — |
