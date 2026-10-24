@@ -80,7 +80,7 @@ See the "Technické rozhodnutia" section of `docs/chatahub_project_plan.md` for 
 - Default branch is **`master`** (not `main`). Follow **GitHub Flow** — no `develop` or deploy
   branch; releases are tags (`v0.x.0` per milestone). See `CONTRIBUTING.md`.
 - **Always** follow the formats in `CONTRIBUTING.md` and the `.github/` templates:
-  - **Issue** (one per branch/PR, in a milestone): title `<type>(<scope>): …` in English + matching
+  - **Issue** (one per branch/PR, in a milestone): title `TYPE(scope): …` in English (TYPE uppercase) + matching
     label; body in Slovak with *Čo a prečo*, *Úlohy*, *Technológie* (new tech: what it is → how it's
     used here), *Edge cases* (bullets), *Hotovo, keď*.
   - **Branch:** `<type>/<issue-number>-<short-kebab-description>`, e.g. `feat/12-devise-auth`.
