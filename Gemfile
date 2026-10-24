@@ -42,9 +42,6 @@ gem "kamal", require: false
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
 
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
-
 # Authentication & Authorization
 gem "devise"
 gem "pundit"
@@ -69,7 +66,10 @@ gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 
 # File Upload & Processing
-gem "image_processing", "~> 1.14"
+# Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+# image_processing 2.x no longer pulls in a backend — ruby-vips must be listed explicitly
+gem "image_processing", "~> 2.2"
+gem "ruby-vips"
 gem "aws-sdk-s3", require: false
 
 # Utilities

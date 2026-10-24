@@ -20,6 +20,23 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 
 ---
 
+## 2026-10-24 — Ponechaný `image_processing` (bump na 2.2) + explicitný `ruby-vips`
+**Typ:** Ponechané · **PR:** _doplniť_
+
+**Kontext:** Dependabot #51 navrhol `image_processing` 1.14 → 2.0. Verzia 2.0 už neťahá backendy
+(`ruby-vips`, `mini_magick`) ako závislosti — po merge by z `Gemfile.lock` zmizli a prvé vytvorenie
+variantu fotky by spadlo na `LoadError` (CI ani testy by to nezachytili).
+
+**Rozhodnutie:** Ponechať gem (photo management je v pláne), bump na 2.2 a do `Gemfile` explicitne
+pridať `ruby-vips` (Rails default `variant_processor = :vips`; systémový `vips` je už v Dockerfile).
+`mini_magick` sa nepoužíva, odpadol. #51 zatvorený.
+
+**Dôvod:** Fotky z mobilov majú 4–12 MB — bez zmenšených variantov je galéria nepoužiteľná. 2.0.x
+opravuje viaceré RCE zraniteľnosti. Nepribúda žiadna služba (Active Storage je súčasť Rails).
+
+**Kedy prehodnotiť:** ak by sa photo management z plánu vypustil. Pozor: od 2.0 vips blokuje
+„unfuzzed“ loadery — pri HEIC fotkách z iPhonu to bude treba riešiť.
+
 ## 2026-10-24 — Odstránený Elasticsearch + Searchkick
 **Typ:** Odstránené · **PR:** #64
 
