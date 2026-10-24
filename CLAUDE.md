@@ -88,13 +88,13 @@ See the "Technické rozhodnutia" section of `docs/chatahub_project_plan.md` for 
     *Ako otestovať lokálne*, `Closes #<issue>`, no "Generated with Claude Code"/attribution line.
     Merge only after the user tested it locally and approved.
   - **Commits:** Conventional Commits, no `Co-Authored-By: Claude …` trailer.
-- CI (`.github/workflows/ci.yml`) runs three jobs on PRs and pushes to `master`:
-  `scan_ruby` (Brakeman), `scan_js` (`bin/importmap audit`), `lint` (RuboCop). There is
-  **no RSpec job in CI** — run `bundle exec rspec` locally before pushing.
+- CI (`.github/workflows/ci.yml`) runs four jobs on PRs and pushes to `master`:
+  `scan_ruby` (Brakeman), `scan_js` (`bin/importmap audit`), `lint` (RuboCop) and `test` (RSpec
+  against a Postgres service container on `localhost`). CI never boots the app server.
 - JS is wired via **importmap-rails** (`config/importmap.rb`, `app/javascript/application.js`,
   `bin/importmap`); the layout loads it with `javascript_importmap_tags`. Add packages with
   `bin/importmap pin <pkg>`, not npm/yarn.
-- **Dependency updates:** green CI ≠ working app (CI runs no tests and never boots the app). For
+- **Dependency updates:** green CI ≠ working app (CI runs specs but never boots the app). For
   major-version bumps read the changelog and verify in the container (`just upd`, `just test`, boot
   `/up`). Watch for dependencies a bump silently drops from `Gemfile.lock`.
 - **Language:** project docs (`docs/*.md` — plan, decision log), issue bodies and PR descriptions
