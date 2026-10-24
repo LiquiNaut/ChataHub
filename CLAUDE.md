@@ -36,6 +36,7 @@ Invariants every feature must respect (details and open questions in the project
 - **Only the system marks a payment as paid** (provider webhook / bank API, verified + idempotent) —
   no role, not even admin, has a "mark as paid" action.
 - **Cancelled reservations and no-shows are not charged**; a payment already made is never refunded.
+  The guest marks their own reservation `no_show` (after check-in, until the payment due date).
 - **Payment providers** sit behind a strategy interface (`Payments::*Strategy`): **Stripe in test
   mode** now; later a **bank transfer to a Fio banka account**, auto-matched by variable symbol
   (= reservation ID) from the free Fio API in a Sidekiq job. Never use Stripe live keys in dev/test.

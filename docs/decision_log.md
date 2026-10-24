@@ -49,12 +49,15 @@ Zvažované: (a) platba hneď s dočasným držaním termínu, (b) do termínu p
 **7 dní po `check_out`**. Po splatnosti nezaplatená rezervácia blokuje nové. Platbu ako zaplatenú
 označuje **výhradne systém** (webhook / bankové API) – žiadna rola na to nemá oprávnenie.
 **Zrušená rezervácia a no-show sa neplatia**; vopred zaplatená suma sa však nevracia (no refunds).
+No-show si označuje **hosť sám** (stav `no_show`, po `check_in` až do splatnosti) – systém inak
+nevie rozlíšiť uskutočnený pobyt od neuskutočneného. Prípadná strata pri zrušení vopred zaplatenej
+rezervácie je akceptovaná (peniaze ostávajú na účte rodiny, stáva sa zriedka).
 
 **Dôvod:** Rodinné prostredie – platí sa za skutočne využitý pobyt, nikto nie je tlačený platiť
 vopred. Automatické potvrdenie odstraňuje ručnú evidenciu a spory „zaplatil/nezaplatil“.
 
 **Kedy prehodnotiť:** ak by sa hromadili nezaplatené pobyty, alebo ak zvolená brána neumožní
-automatické potvrdenie. Otvorené: ako systém rozpozná no-show.
+automatické potvrdenie, alebo ak by sa no-show zneužíval.
 
 ## 2026-10-24 — Zamietnutý PAY by square s ručným označovaním platieb
 **Typ:** Zamietnuté · **PR:** #67

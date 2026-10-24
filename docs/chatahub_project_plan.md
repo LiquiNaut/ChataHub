@@ -123,6 +123,9 @@ Ako presne dosiahneme kľúčové funkcie. Prečo sme sa rozhodli tak, ako sme s
   udalostí s unikátnym ID – duplicitná udalosť sa preskočí), spracovanie v Sidekiq jobe.
 - **Zrušená rezervácia a „no-show“ (neprišiel) sa neplatia** – platba vzniká iba za uskutočnený
   pobyt. Ak bola zaplatená vopred, peniaze sa nevracajú (no refunds).
+- **No-show označuje hosť sám:** pri vlastnej nezrušenej rezervácii môže po `check_in` až do
+  splatnosti kliknúť „neprišiel som“ → stav `no_show`, platba nevzniká. (Rodinná dôvera; nejde
+  o označenie platby, iba o informáciu, že pobyt sa nekonal.)
 - **Platobná brána – Strategy pattern** (`Payments::*Strategy`):
   1. **`StripeStrategy`** – teraz, v **test móde** (zadarmo): Stripe Checkout, webhook
      `checkout.session.completed`.
@@ -156,8 +159,6 @@ Ako presne dosiahneme kľúčové funkcie. Prečo sme sa rozhodli tak, ako sme s
 - Per-user **iCal feed** `/calendar/<token>.ics` (gem `icalendar`), token sa dá pregenerovať.
 
 ### ❓ Otvorené otázky
-- **Ako systém zistí „no-show“?** Rezervácia, ktorá nebola zrušená, vyzerá po `check_out` rovnako
-  ako uskutočnený pobyt.
 - Dohoda s ownermi: založenie účtu chaty vo Fio banke (alebo ostrý Stripe účet) – registrovať sa
   musí majiteľ účtu.
 
