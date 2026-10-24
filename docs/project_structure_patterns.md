@@ -10,7 +10,6 @@ chatahub/
 │   │   ├── reservations_controller.rb
 │   │   ├── payments_controller.rb
 │   │   ├── photos_controller.rb
-│   │   ├── search_controller.rb
 │   │   ├── food_items_controller.rb
 │   │   └── admin/
 │   │       ├── dashboard_controller.rb
@@ -25,7 +24,6 @@ chatahub/
 │   │   ├── photo.rb
 │   │   ├── food_item.rb
 │   │   └── concerns/
-│   │       ├── searchable.rb
 │   │       ├── notifiable.rb
 │   │       └── trackable.rb
 │   │
@@ -41,9 +39,6 @@ chatahub/
 │   │   ├── notifications/
 │   │   │   ├── sms_service.rb
 │   │   │   └── email_service.rb
-│   │   ├── search/
-│   │   │   ├── index_service.rb
-│   │   │   └── query_service.rb
 │   │   ├── photos/
 │   │   │   ├── upload_service.rb
 │   │   │   └── process_service.rb
@@ -57,8 +52,7 @@ chatahub/
 │   │   ├── send_sms_notification_job.rb
 │   │   ├── sync_calendar_job.rb
 │   │   ├── fetch_weather_job.rb
-│   │   ├── photo_processing_job.rb
-│   │   └── search_index_job.rb
+│   │   └── photo_processing_job.rb
 │   │
 │   ├── 📁 views/
 │   │   ├── layouts/
@@ -67,7 +61,6 @@ chatahub/
 │   │   ├── reservations/
 │   │   ├── photos/
 │   │   ├── food_items/
-│   │   ├── search/
 │   │   └── admin/
 │   │       ├── dashboard/
 │   │       └── analytics/
@@ -77,11 +70,9 @@ chatahub/
 │   │   │   ├── application.js
 │   │   │   ├── calendar_controller.js
 │   │   │   ├── photo_upload_controller.js
-│   │   │   ├── search_controller.js
 │   │   │   ├── darkmode_controller.js
 │   │   │   └── food_board_controller.js
 │   │   └── src/
-│   │       ├── search.js
 │   │       └── utils.js
 │   │
 │   ├── 📁 policies/
@@ -95,20 +86,14 @@ chatahub/
 │       │   ├── base_handler.rb
 │       │   ├── sms_handler.rb
 │       │   └── email_handler.rb
-│       ├── search_builders/
-│       │   ├── base_builder.rb
-│       │   └── reservation_builder.rb
 │       └── metaprogramming/
-│           ├── dynamic_validators.rb
-│           └── searchable_generator.rb
+│           └── dynamic_validators.rb
 │
 ├── 📁 config/
 │   ├── routes.rb
 │   ├── application.rb
 │   ├── database.yml
-│   ├── elasticsearch.yml
 │   └── initializers/
-│       ├── elasticsearch.rb
 │       ├── stripe.rb
 │       └── twilio.rb
 │
@@ -125,8 +110,7 @@ chatahub/
 │
 ├── 📁 docker/
 │   ├── Dockerfile
-│   ├── docker-compose.yml
-│   └── elasticsearch/
+│   └── docker-compose.yml
 │
 └── 📁 config/deploy/
     ├── deploy.yml (Kamal)
@@ -272,62 +256,7 @@ class EventBus
 end
 ```
 
-### 4. **Builder Pattern pre Search**
-```ruby
-# app/lib/search_builders/base_builder.rb
-class SearchBuilders::BaseBuilder
-  def initialize
-    @query = {}
-  end
-
-  def build
-    @query
-  end
-
-  def add_filter(field, value)
-    @query[:filter] ||= []
-    @query[:filter] << { term: { field => value } }
-    self
-  end
-
-  def add_range(field, from: nil, to: nil)
-    range = {}
-    range[:gte] = from if from
-    range[:lte] = to if to
-    
-    @query[:filter] ||= []
-    @query[:filter] << { range: { field => range } }
-    self
-  end
-
-  def add_text_search(text)
-    @query[:query] = {
-      multi_match: {
-        query: text,
-        fields: searchable_fields
-      }
-    }
-    self
-  end
-
-  protected
-
-  def searchable_fields
-    raise NotImplementedError
-  end
-end
-
-# app/lib/search_builders/reservation_builder.rb
-class SearchBuilders::ReservationBuilder < SearchBuilders::BaseBuilder
-  protected
-
-  def searchable_fields
-    ['user.name', 'user.email', 'notes']
-  end
-end
-```
-
-### 5. **Strategy Pattern pre Payments**
+### 4. **Strategy Pattern pre Payments**
 ```ruby
 # app/services/payments/strategy_service.rb
 class Payments::StrategyService
@@ -353,7 +282,7 @@ class Payments::StrategyService
 end
 ```
 
-### 6. **Decorator Pattern pre Photo Processing**
+### 5. **Decorator Pattern pre Photo Processing**
 ```ruby
 # app/lib/photo_decorators/base_decorator.rb
 class PhotoDecorators::BaseDecorator
@@ -389,62 +318,6 @@ class PhotoDecorators::WatermarkDecorator < PhotoDecorators::BaseDecorator
   def process
     # Add watermark logic
     super
-  end
-end
-```
-
-### 7. **Metaprogramovanie pre Searchable**
-```ruby
-# app/models/concerns/searchable.rb
-module Searchable
-  extend ActiveSupport::Concern
-
-  included do
-    include Elasticsearch::Model
-    include Elasticsearch::Model::Callbacks
-  end
-
-  class_methods do
-    def searchable_fields(*fields)
-      @searchable_fields = fields
-      define_search_methods
-    end
-
-    def search_scope(scope_name, &block)
-      define_singleton_method("search_#{scope_name}") do |query|
-        search_query = instance_exec(query, &block)
-        __elasticsearch__.search(search_query)
-      end
-    end
-
-    private
-
-    def define_search_methods
-      @searchable_fields.each do |field|
-        define_singleton_method("search_by_#{field}") do |value|
-          __elasticsearch__.search(
-            query: { match: { field => value } }
-          )
-        end
-      end
-    end
-  end
-end
-
-# Usage v modeloch:
-class Reservation < ApplicationRecord
-  include Searchable
-
-  searchable_fields :notes, :status
-  
-  search_scope :by_date_range do |from, to|
-    {
-      query: {
-        range: {
-          start_date: { gte: from, lte: to }
-        }
-      }
-    }
   end
 end
 ```
@@ -492,10 +365,6 @@ export default class extends Controller {
     <% end %>
   </div>
 <% end %>
-
-<%= turbo_frame_tag "search_results" do %>
-  <!-- Search results here -->
-<% end %>
 ```
 
 ---
@@ -517,11 +386,6 @@ export default class extends Controller {
 - ✅ Easy event tracking
 - ✅ Extensible architecture
 
-### **Builder Pattern**
-- ✅ Complex query building
-- ✅ Fluent interface
-- ✅ Elasticsearch flexibility
-
 ### **Metaprogramovanie**
 - ✅ DRY code
 - ✅ Dynamic functionality
@@ -538,11 +402,10 @@ export default class extends Controller {
 
 ### **Phase 2: Advanced Patterns**
 1. Factory for Notifications
-2. Builder for Search
-3. Strategy for Payments
+2. Strategy for Payments
 
 ### **Phase 3: Metaprogramovanie**
-1. Dynamic Searchable
+1. Dynamic Notification Handlers
 2. Event System
 3. Advanced Decorators
 
