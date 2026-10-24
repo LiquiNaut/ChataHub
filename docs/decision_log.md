@@ -21,7 +21,7 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 ---
 
 ## 2026-10-24 — Farby cez `light-dark()`, vlastné hostovanie písma, Tailwind watcher ako služba
-**Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #88)
+**Typ:** Rozhodnuté · **PR:** #95 (issue #88)
 
 **Kontext:** Prenos schváleného dizajnu do kódu. Tailwind, Turbo ani Stimulus neboli nainštalované.
 
@@ -43,7 +43,7 @@ Všetko ostatné beží v Dockeri, tak aj Tailwind watcher. ViewComponent by bol
 so starším iPhonom, zvýšiť požiadavku v `allow_browser` alebo pridať záložné farby.
 
 ## 2026-10-24 — Schválený dizajn: mobile-first, pastelové farby, svetlý aj tmavý režim
-**Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #88)
+**Typ:** Rozhodnuté · **PR:** #95 (issue #88)
 
 **Kontext:** Pred prvou obrazovkou (#72) sme chceli jednotný vzhľad. Väčšina používateľov bude na mobile.
 
@@ -58,7 +58,7 @@ spĺňajú kontrast WCAG AA (≥ 4.5:1).
 **Kedy prehodnotiť:** po prvom použití rodinou na mobile.
 
 ## 2026-10-24 — Cena 2,50 € za osobu a noc, deti zadarmo
-**Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #91)
+**Typ:** Rozhodnuté · **PR:** #95 (issue #91)
 
 **Kontext:** Pôvodne 5 € za noc za celú rezerváciu. Na chatu však často ide viac ľudí.
 
@@ -71,7 +71,7 @@ do ceny nezapočítali. Samostatná evidencia detí by bola YAGNI.
 **Kedy prehodnotiť:** ak by sa mali deti platiť (napr. znížená cena) alebo by sa cena menila podľa sezóny.
 
 ## 2026-10-24 — Spolucestujúci a poznámka pri rezervácii, mená viditeľné všetkým
-**Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #91)
+**Typ:** Rozhodnuté · **PR:** #95 (issue #91)
 
 **Kontext:** V kalendári bolo vidno iba „Obsadené“. Rodina chce vedieť, kto je na chate a s kým.
 
@@ -83,7 +83,7 @@ do ceny nezapočítali. Samostatná evidencia detí by bola YAGNI.
 **Kedy prehodnotiť:** ak by sa skupina rozšírila mimo užšej rodiny.
 
 ## 2026-10-24 — Pridaná Nástenka: poznámky a zásoby
-**Typ:** Pridané · **PR:** _doplniť_ (issue #92)
+**Typ:** Pridané · **PR:** #95 (issue #92)
 
 **Kontext:** Plán mal „Food board“ (zoznam potravín). Pribudol nápad na poznámky s menom autora.
 
