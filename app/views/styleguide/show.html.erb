@@ -1,0 +1,103 @@
+<% content_for :title, "Dizajn systém – ChataHub" %>
+
+<main class="mx-auto flex max-w-[1120px] flex-col gap-10 px-4 py-8 md:px-6 md:py-12">
+  <header class="flex flex-wrap items-end justify-between gap-4">
+    <div class="flex flex-col gap-2">
+      <p class="text-[13px] font-bold uppercase tracking-[0.08em] text-accent">ChataHub</p>
+      <h1 class="text-3xl font-bold md:text-4xl">Dizajn systém</h1>
+      <p class="max-w-2xl text-base text-muted">Komponenty a farby podľa schváleného návrhu (#88). Prepni režim a skontroluj obe verzie.</p>
+    </div>
+    <div class="w-full max-w-xs"><%= render "shared/theme_switcher" %></div>
+  </header>
+
+  <section class="flex flex-col gap-4">
+    <h2 class="text-[22px] font-bold">Farby</h2>
+    <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+      <% [
+        ["canvas", "bg-canvas text-ink"], ["surface", "bg-surface text-ink"], ["subtle", "bg-subtle text-ink"],
+        ["ink", "bg-ink text-canvas"], ["muted", "bg-muted text-canvas"], ["primary", "bg-primary text-primary-ink"],
+        ["accent", "bg-accent text-on-accent"], ["occupied", "bg-occupied text-occupied-ink"], ["mine", "bg-mine text-mine-ink"],
+        ["warning", "bg-warning text-warning-ink"], ["danger", "bg-danger text-danger-ink"], ["disabled", "bg-disabled text-muted"]
+      ].each do |name, classes| %>
+        <div class="<%= classes %> flex h-20 flex-col justify-between rounded-xl border border-line p-3">
+          <span class="text-lg font-semibold">Aa</span>
+          <code class="text-xs">--color-<%= name %></code>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-4">
+    <h2 class="text-[22px] font-bold">Typografia · Plus Jakarta Sans</h2>
+    <%= render layout: "shared/card", locals: { class: "flex flex-col gap-3" } do %>
+      <p class="text-[32px] leading-10 font-bold">Rezervuj si chatu</p>
+      <p class="text-[22px] leading-[30px] font-bold">November 2026</p>
+      <p class="text-base">Deň odchodu môže byť dňom príchodu ďalšieho hosťa. Ľščťžýáíéúäňô.</p>
+      <p class="text-sm font-medium text-muted">2 noci · 2 osoby · 10,00 € · splatné do 29. 11.</p>
+      <p class="text-xs font-semibold uppercase tracking-[0.06em] text-muted">Moje rezervácie</p>
+    <% end %>
+  </section>
+
+  <section class="flex flex-col gap-4">
+    <h2 class="text-[22px] font-bold">Tlačidlá a štítky</h2>
+    <%= render layout: "shared/card", locals: { class: "flex flex-col gap-5" } do %>
+      <div class="flex flex-wrap gap-3">
+        <button type="button" class="<%= ui_button_classes(:primary) %>">Rezervovať</button>
+        <button type="button" class="<%= ui_button_classes(:secondary) %>">Zrušiť</button>
+        <button type="button" class="<%= ui_button_classes(:ghost) %>">Neprišiel som</button>
+        <button type="button" class="<%= ui_button_classes(:danger) %>">Zrušiť rezerváciu</button>
+        <button type="button" class="<%= ui_button_classes(:primary) %>" disabled>Nedostupné</button>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <%= ui_badge "Zaplatené", tone: :paid %>
+        <%= ui_badge "Nezaplatené", tone: :unpaid %>
+        <%= ui_badge "Neprišiel som", tone: :no_show %>
+        <%= ui_badge "Zrušená" %>
+      </div>
+    <% end %>
+  </section>
+
+  <section class="flex flex-col gap-4">
+    <h2 class="text-[22px] font-bold">Formulár</h2>
+    <%= render layout: "shared/card" do %>
+      <%= form_with url: "#", scope: :demo, class: "grid gap-4 md:grid-cols-2" do |form| %>
+        <%= render "shared/field", form:, attribute: :email, label: "E-mail", type: :email_field, placeholder: "meno@example.sk" %>
+        <%= render "shared/field", form:, attribute: :phone, label: "Telefón", type: :telephone_field, hint: "S predvoľbou krajiny" %>
+        <%= render "shared/field", form:, attribute: :password, label: "Heslo", type: :password_field, error: "Heslo musí mať aspoň 8 znakov." %>
+        <div class="flex items-end">
+          <button type="button" class="<%= ui_button_classes(:primary, block: true) %>">Prihlásiť sa</button>
+        </div>
+      <% end %>
+    <% end %>
+  </section>
+
+  <section class="flex flex-col gap-4">
+    <h2 class="text-[22px] font-bold">Dni v kalendári</h2>
+    <%= render layout: "shared/card", locals: { class: "flex flex-wrap gap-4" } do %>
+      <% [
+        ["12", "Voľné", "border border-line bg-surface text-ink"],
+        ["6", "Obsadené", "bg-occupied text-occupied-ink"],
+        ["20", "Moja", "bg-mine text-mine-ink"],
+        ["13", "Vybrané", "bg-accent text-on-accent font-bold"],
+        ["15", "Odchod", "border-2 border-accent bg-surface text-accent font-bold"],
+        ["8", "Deň odchodu", "border border-line bg-[linear-gradient(135deg,var(--color-occupied)_0_50%,var(--color-surface)_50%_100%)] text-ink"]
+      ].each do |day, label, classes| %>
+        <div class="flex flex-col items-center gap-1.5">
+          <span class="<%= classes %> flex size-11 items-center justify-center rounded-xl text-[15px] font-semibold"><%= day %></span>
+          <span class="text-xs text-muted"><%= label %></span>
+        </div>
+      <% end %>
+    <% end %>
+  </section>
+
+  <section class="flex flex-col gap-4">
+    <h2 class="text-[22px] font-bold">Navigácia</h2>
+    <p class="text-sm text-muted">V aplikácii je na mobile dole a na desktope hore. Odkazy sa napoja s #72, #77 a #92.</p>
+    <div class="overflow-hidden rounded-2xl border border-line">
+      <%= render "shared/desktop_header", items: main_navigation_items, active: :calendar %>
+    </div>
+    <div class="max-w-[390px] overflow-hidden rounded-2xl border border-line">
+      <%= render "shared/mobile_nav", items: main_navigation_items, active: :reservations %>
+    </div>
+  </section>
+</main>

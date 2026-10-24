@@ -95,8 +95,8 @@ See the "Technické rozhodnutia" section of `docs/chatahub_project_plan.md` for 
     Merge only after the user tested it locally and approved.
   - **Commits:** Conventional Commits, no `Co-Authored-By: Claude …` trailer.
 - CI (`.github/workflows/ci.yml`) runs four jobs on PRs and pushes to `master`:
-  `scan_ruby` (Brakeman), `scan_js` (`bin/importmap audit`), `lint` (RuboCop) and `test` (RSpec
-  against a Postgres service container on `localhost`). CI never boots the app server.
+  `scan_ruby` (Brakeman), `scan_js` (`bin/importmap audit`), `lint` (RuboCop) and `test` (Tailwind
+  build + RSpec against a Postgres service container on `localhost`). CI never boots the app server.
 - JS is wired via **importmap-rails** (`config/importmap.rb`, `app/javascript/application.js`,
   `bin/importmap`); the layout loads it with `javascript_importmap_tags`. Add packages with
   `bin/importmap pin <pkg>`, not npm/yarn.
@@ -133,6 +133,17 @@ Follow the approved design (canvas "ChataHub UI", issue #88): mobile-first, ligh
 Plus Jakarta Sans, pastel palette defined as Tailwind 4 `@theme` tokens — use the tokens, never raw
 hex values in views. Touch targets ≥ 44 px, text contrast ≥ 4.5:1.
 
+- **Tokens** live in `app/assets/tailwind/application.css` as `light-dark(light, dark)` values, e.g.
+  `bg-canvas`, `bg-surface`, `text-ink`, `text-muted`, `border-line`, `bg-primary text-primary-ink`,
+  `text-accent`, `bg-occupied`, `bg-mine`, `bg-warning`, `bg-danger`. One class works in both modes —
+  no `dark:` variants needed.
+- **Theme:** follows the system; `data-theme="light|dark"` on `<html>` overrides it (saved in
+  `localStorage` by the `theme` Stimulus controller, applied before paint by an inline script).
+- **Building blocks:** `ui_button_classes(variant)` / `ui_badge(text, tone:)` (`UiHelper`),
+  `render layout: "shared/card"`, `render "shared/field", form:, attribute:, label:` and the
+  navigation partials. Preview everything at **`/styleguide`** (not routed in production).
+- **Fonts are self-hosted** (`app/assets/fonts`, OFL) — never link Google Fonts (GDPR).
+
 ## Current State
 
 Keep this section short and update it at every milestone.
@@ -143,7 +154,8 @@ registration, roles), then Reservation core with overlap prevention (TDD).
 
 ## Development Environment
 
-- Docker Compose for services (Postgres, Redis) — see `compose.yml`. `app`/`sidekiq`
+- Docker Compose for services (Postgres, Redis) plus a `css` service running
+  `tailwindcss:watch` — see `compose.yml`. `app`/`sidekiq`
   wait for healthy dependencies. Postgres is on host port **5433** (dev DB `chata_hub_development`);
   `bundle exec rspec`/`bin/rails` outside the containers need that DB running or they fail with a
   Postgres connection/auth error.

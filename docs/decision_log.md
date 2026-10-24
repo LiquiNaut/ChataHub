@@ -20,6 +20,28 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 
 ---
 
+## 2026-10-24 — Farby cez `light-dark()`, vlastné hostovanie písma, Tailwind watcher ako služba
+**Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #88)
+
+**Kontext:** Prenos schváleného dizajnu do kódu. Tailwind, Turbo ani Stimulus neboli nainštalované.
+
+**Rozhodnutie:**
+- Farby sú Tailwind `@theme` tokeny s hodnotou `light-dark(svetlá, tmavá)`. Režim určuje
+  `color-scheme` – podľa systému, prepísateľný cez `data-theme` na `<html>`. Jedna trieda (`bg-surface`)
+  funguje v oboch režimoch, bez `dark:` variantov.
+- Písmo Plus Jakarta Sans je **hostované v aplikácii** (`app/assets/fonts`), nie z Google Fonts.
+- Tailwind sa v dev kompiluje v samostatnej compose službe `css` (`tailwindcss:watch[always]`);
+  `bin/dev` + foreman z inštalátora sme nepoužili. CI kompiluje Tailwind pred testami.
+- UI stavebné bloky ako helpery a partials (bez ViewComponent, bez Flowbite) + stránka `/styleguide`.
+
+**Dôvod:** `light-dark()` odstraňuje duplicitu svetlých/tmavých tried. Google Fonts posiela IP
+návštevníkov Googlu (v EÚ posudzované ako problém GDPR) a vlastné hostovanie je rýchlejšie.
+Všetko ostatné beží v Dockeri, tak aj Tailwind watcher. ViewComponent by bol pri pár komponentoch YAGNI.
+
+**Kedy prehodnotiť:** `light-dark()` vyžaduje Safari 17.5+ / Chrome 123+ / Firefox 120+;
+`allow_browser :modern` púšťa aj Safari 17.2–17.4, kde by tokeny nefungovali. Ak by sa ozval niekto
+so starším iPhonom, zvýšiť požiadavku v `allow_browser` alebo pridať záložné farby.
+
 ## 2026-10-24 — Schválený dizajn: mobile-first, pastelové farby, svetlý aj tmavý režim
 **Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #88)
 

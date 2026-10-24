@@ -61,7 +61,7 @@ The project is fully Dockerized for an easy setup.
    docker compose exec app bin/rails db:create db:migrate
    ```
 
-The application runs at: `http://localhost:3000`.
+The application runs at: `http://localhost:3000`. UI components preview: `http://localhost:3000/styleguide`.
 
 > **Tip:** the repo ships a [`justfile`](justfile) with shortcuts (install `just` via
 > `sudo apt install just`). E.g. `just up`, `just db-setup`, `just test`, `just lint`,

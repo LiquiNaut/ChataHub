@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url("plus-jakarta-sans-latin-ext-wght-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url("plus-jakarta-sans-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* System theme by default, data-theme overrides */
+:root { color-scheme: light dark; }
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-canvas: light-dark(#F6F7F9, #121519);
+  --color-surface: light-dark(#FFFFFF, #1B2026);
+  --color-subtle: light-dark(#EEF0F3, #232930);
+  --color-line: light-dark(#E3E6EA, #2B323A);
+  --color-field: light-dark(#D5D9DF, #353D46);
+  --color-ink: light-dark(#1B1F24, #E9EDF1);
+  --color-muted: light-dark(#5B6470, #A6B0BB);
+  --color-disabled: light-dark(#ECEEF1, #252B32);
+
+  --color-primary: light-dark(#BFE3CF, #9ED6B8);
+  --color-primary-ink: light-dark(#14402C, #0E2A1C);
+  --color-accent: light-dark(#2F6B4F, #A8DEC1);
+  --color-on-accent: light-dark(#FFFFFF, #0E2A1C);
+
+  --color-occupied: light-dark(#E4E0FA, #2E2A52);
+  --color-occupied-ink: light-dark(#3D3778, #DCD7FF);
+  --color-mine: light-dark(#D7EEE1, #1E3B2E);
+  --color-mine-ink: light-dark(#1F5A3F, #BDE8CF);
+  --color-warning: light-dark(#FDE6D4, #4A2E1C);
+  --color-warning-ink: light-dark(#8A4513, #FFD2B0);
+  --color-danger: light-dark(#FBE1E1, #4A1F22);
+  --color-danger-ink: light-dark(#9B2C2C, #FFC9C9);
+}
+
+@layer base {
+  body {
+    @apply min-h-dvh bg-canvas font-sans text-ink antialiased;
+  }
+}

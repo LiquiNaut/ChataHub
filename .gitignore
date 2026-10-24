@@ -38,3 +38,5 @@
 # Ignore IDE and editor specific files.
 .idea
 .vscode
+/app/assets/builds/*
+!/app/assets/builds/.keep
