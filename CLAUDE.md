@@ -21,13 +21,25 @@ Invariants every feature must respect (details and open questions in the project
 
 - **One cabin**, a closed family group of **~20 invited users**. Size solutions to that — no
   multi-tenant, search engine or scale-out machinery.
-- **Invite-only**: no public sign-up and no OAuth/social login; accounts are created from invitations.
+- **Invite-only**: no public sign-up and no OAuth/social login; accounts are created from invitations
+  (`devise_invitable`) sent by an owner or admin.
+- **Roles** (`enum :role` on `User`, enforced by Pundit): `member`, `owner` (the cabin's co-owners —
+  invite people, cancel others' reservations, block dates), `admin` (also manages roles). Never name
+  a role `user`.
 - Reservations are **auto-confirmed** (first come, first served), **minimum 1 night**.
 - Stay dates are a **half-open range `[check_in, check_out)`** — check-out day may be the next guest's
   check-in day. Overlaps are prevented by a **DB exclusion constraint**, not only a model validation.
 - Price is **€5 per night**, computed server-side. Store money as **integer cents**, never floats.
 - **No refunds**: a guest may cancel, but a payment is never returned.
-- Payment provider and payment timing are **not decided yet** — don't build payment code until they are.
+- **Payment timing:** the guest may pay at booking but doesn't have to; payment is due **7 days after
+  `check_out`**. An overdue unpaid reservation blocks creating new ones.
+- **Only the system marks a payment as paid** (provider webhook / bank API, verified + idempotent) —
+  no role, not even admin, has a "mark as paid" action.
+- The **payment provider is not decided yet** — don't build provider-specific code until it is; keep
+  payments behind a strategy interface (`Payments::*Strategy`).
+- Calendar sync is a per-user secret **iCal (.ics) feed** (`icalendar` gem), not a calendar API.
+
+See the "Technické rozhodnutia" section of `docs/chatahub_project_plan.md` for the how.
 
 ## Tech Stack
 
