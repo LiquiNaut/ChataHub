@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_15_201561) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_24_142502) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "cabins", force: :cascade do |t|
-    t.integer "capacity"
+    t.integer "capacity", null: false
     t.datetime "created_at", null: false
-    t.string "location"
-    t.string "name"
-    t.decimal "price_per_night"
+    t.string "location", null: false
+    t.string "name", null: false
+    t.integer "price_per_night_cents", null: false
     t.datetime "updated_at", null: false
   end
 
