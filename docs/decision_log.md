@@ -21,7 +21,7 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 ---
 
 ## 2026-10-24 — Odstránený Elasticsearch + Searchkick
-**Typ:** Odstránené · **PR:** _doplniť_
+**Typ:** Odstránené · **PR:** #64
 
 **Kontext:** Elasticsearch bol v pláne na full-text, faceted search, autocomplete a search analytics.
 Hlavný dôvod bol portfóliový („skúsenosť s search enginom“), nie potreba domény. ChataHub je
@@ -45,7 +45,7 @@ nedajú rozumne prezrieť/filtrovať. Prvá voľba je potom PostgreSQL full-text
 samostatný search engine.
 
 ## 2026-10-24 — Nepridávame ani `pg_search`
-**Typ:** Zamietnuté · **PR:** _doplniť_
+**Typ:** Zamietnuté · **PR:** #64
 
 **Kontext:** Ako náhrada za Elasticsearch sa zvažoval `pg_search` (full-text, prefix/autocomplete,
 trigram na preklepy, `unaccent` na diakritiku — všetko priamo v PostgreSQL, bez ďalšej služby).
@@ -59,7 +59,7 @@ Doplnenie neskôr je lacné (jedna migrácia na extensions + jeden `pg_search_sc
 reálne hľadalo.
 
 ## 2026-10-24 — Odstránený `logstash-event`
-**Typ:** Odstránené · **PR:** _doplniť_
+**Typ:** Odstránené · **PR:** #64
 
 **Kontext:** Gem bol v `Gemfile` s komentárom „Logging with Logstash to Elasticsearch“, ale nikde
 v konfigurácii sa nepoužíval.
