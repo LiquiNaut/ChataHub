@@ -21,7 +21,7 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 ---
 
 ## 2026-10-24 — Ponechaný `image_processing` (bump na 2.2) + explicitný `ruby-vips`
-**Typ:** Ponechané · **PR:** _doplniť_
+**Typ:** Ponechané · **PR:** #65
 
 **Kontext:** Dependabot #51 navrhol `image_processing` 1.14 → 2.0. Verzia 2.0 už neťahá backendy
 (`ruby-vips`, `mini_magick`) ako závislosti — po merge by z `Gemfile.lock` zmizli a prvé vytvorenie
