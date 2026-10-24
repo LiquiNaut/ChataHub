@@ -59,11 +59,8 @@ gem "twilio-ruby"
 # Weather API
 gem "httparty"
 
-# Calendar Integration
-gem "google-apis-calendar_v3"
-gem "omniauth"
-gem "omniauth-google-oauth2"
-gem "omniauth-rails_csrf_protection"
+# Calendar Integration (iCal feed for Apple/Google Calendar subscriptions)
+gem "icalendar"
 
 # File Upload & Processing
 # Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
