@@ -15,7 +15,7 @@ master ──●──●──●──●──►  (always deployable, releas
 2. Branch off the latest `master`, named after the issue — see [Branch naming](#branch-naming).
 3. Make small, focused commits.
 4. Open a PR early with `Closes #<issue>`; let CI run.
-5. Merge to `master` after review + green CI. The branch is deleted automatically on merge
+5. Merge to `master` after green CI **and after the change was tested locally and approved**. The branch is deleted automatically on merge
    (commits stay in `master` history, the diff stays in the PR).
 
 There is no `develop` or deploy branch — see [Releases](#releases--deploys).
@@ -85,9 +85,10 @@ bundle exec brakeman     # no new warnings
 
 ## Pull requests
 
-The PR template mirrors the issue format, in English: `Closes #<issue>`, **What & why**,
-**Changes**, **Technologies** (if new), **Edge cases**, **Test plan**. The PR title equals the issue
-title (type in UPPERCASE). If a stack/architecture decision was made, add an entry to `docs/decision_log.md`.
+The PR template mirrors the issue format and is written **in Slovak**: `Closes #<issue>`,
+**Čo a prečo**, **Zmeny**, **Technológie** (if new), **Edge cases**, **Ako otestovať lokálne**
+(concrete steps on localhost with expected results), **Kontrola**. The PR title equals the issue
+title (English, type in UPPERCASE). No tool/AI attribution lines in the description. If a stack/architecture decision was made, add an entry to `docs/decision_log.md`.
 
 ## Releases & deploys
 
