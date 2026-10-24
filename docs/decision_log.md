@@ -20,6 +20,24 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 
 ---
 
+## 2026-10-24 — Platobná brána: teraz Stripe (test mód), neskôr prevod + Fio API
+**Typ:** Rozhodnuté · **PR:** #67
+
+**Kontext:** Hľadali sme bránu bez poplatkov s automatickým potvrdením platby. Prieskum: Stripe
+1,5 % + 0,25 € (pri 5 € ≈ 6,5 %), Revolut Merchant (len Revolut Business), SK brány (spravidla pre
+podnikateľov), open-banking „pay by bank“ (pre firmy), BTCPay (iba bitcoin). Nulové poplatky
+s automatickým potvrdením ponúka len **prevod na účet v banke s bezplatným API (Fio)**.
+
+**Rozhodnutie:** Strategy pattern `Payments::*Strategy`. Teraz `StripeStrategy` v **test móde**
+(zadarmo, na naučenie webhookov, podpisov a idempotencie). Neskôr `BankTransferStrategy` – prevod na
+účet chaty vo Fio banke, párovanie cez variabilný symbol z Fio API v Sidekiq jobe.
+
+**Dôvod:** Stripe má najlepšiu dokumentáciu a test mód bez nákladov; Fio dáva 0 € poplatky bez
+ručného označovania. Strategy pattern tu má reálny dôvod – vymeniteľný poskytovateľ.
+
+**Kedy prehodnotiť:** keď sa owneri dohodnú na účte – ak nebude vo Fio, ostáva Stripe live (alebo
+Revolut Merchant pri Revolut Business účte). Treba overiť dostupnosť Stripe pre súkromnú osobu v SR.
+
 ## 2026-10-24 — Platba: zaplatiť hneď alebo do 7 dní po pobyte, „zaplatené“ označuje iba systém
 **Typ:** Rozhodnuté · **PR:** #67
 
@@ -30,12 +48,13 @@ Zvažované: (a) platba hneď s dočasným držaním termínu, (b) do termínu p
 **Rozhodnutie:** Rezervácia je potvrdená hneď. Zaplatiť sa dá hneď, ale nemusí; splatnosť je
 **7 dní po `check_out`**. Po splatnosti nezaplatená rezervácia blokuje nové. Platbu ako zaplatenú
 označuje **výhradne systém** (webhook / bankové API) – žiadna rola na to nemá oprávnenie.
+**Zrušená rezervácia a no-show sa neplatia**; vopred zaplatená suma sa však nevracia (no refunds).
 
 **Dôvod:** Rodinné prostredie – platí sa za skutočne využitý pobyt, nikto nie je tlačený platiť
 vopred. Automatické potvrdenie odstraňuje ručnú evidenciu a spory „zaplatil/nezaplatil“.
 
 **Kedy prehodnotiť:** ak by sa hromadili nezaplatené pobyty, alebo ak zvolená brána neumožní
-automatické potvrdenie. Otvorené: platba pri zrušení pred príchodom a pri „no-show“.
+automatické potvrdenie. Otvorené: ako systém rozpozná no-show.
 
 ## 2026-10-24 — Zamietnutý PAY by square s ručným označovaním platieb
 **Typ:** Zamietnuté · **PR:** #67

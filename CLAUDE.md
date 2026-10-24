@@ -35,8 +35,10 @@ Invariants every feature must respect (details and open questions in the project
   `check_out`**. An overdue unpaid reservation blocks creating new ones.
 - **Only the system marks a payment as paid** (provider webhook / bank API, verified + idempotent) —
   no role, not even admin, has a "mark as paid" action.
-- The **payment provider is not decided yet** — don't build provider-specific code until it is; keep
-  payments behind a strategy interface (`Payments::*Strategy`).
+- **Cancelled reservations and no-shows are not charged**; a payment already made is never refunded.
+- **Payment providers** sit behind a strategy interface (`Payments::*Strategy`): **Stripe in test
+  mode** now; later a **bank transfer to a Fio banka account**, auto-matched by variable symbol
+  (= reservation ID) from the free Fio API in a Sidekiq job. Never use Stripe live keys in dev/test.
 - Calendar sync is a per-user secret **iCal (.ics) feed** (`icalendar` gem), not a calendar API.
 
 See the "Technické rozhodnutia" section of `docs/chatahub_project_plan.md` for the how.

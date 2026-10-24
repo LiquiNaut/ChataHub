@@ -24,7 +24,7 @@ Ukázať schopnosť navrhnúť, implementovať a nasadiť produkčne pripravenú
 | **Storage**         | ActiveStorage + cloud (S3/Cloudflare R2)     |
 | **Auth**            | Devise + Pundit (autorizácia)                |
 | **Jobs**            | Sidekiq (notifikácie, cleanup)               |
-| **Payments**        | zatiaľ nerozhodnuté (viď Technické rozhodnutia) |
+| **Payments**        | Stripe (test mód) → neskôr prevod + Fio API   |
 | **Testing**         | RSpec + FactoryBot + SimpleCov               |
 | **CI/CD**           | GitHub Actions                               |
 | **Dev tooling**     | just (task runner) + Docker Compose          |
@@ -52,11 +52,11 @@ Ukázať schopnosť navrhnúť, implementovať a nasadiť produkčne pripravenú
 - **Blokovanie** ďalších rezervácií pri nezaplatenej existujúcej
 
 ### 💳 **Platby**
-- **Platobná brána**: zatiaľ nerozhodnuté (viď Technické rozhodnutia)
+- **Platobná brána**: Stripe (počas vývoja v test móde); neskôr prevod na účet vo Fio banke s automatickým párovaním cez Fio API
 - **Pevná cena**: 5€ za noc
 - **Zaplatiť hneď** pri rezervácii je možné, ale nie povinné; **najneskôr do 7 dní po skončení pobytu**
 - **Platbu označuje ako zaplatenú iba systém** (po potvrdení od platobnej brány), nikdy človek
-- **No refunds** - platba ostáva na účte chaty
+- **Zrušená rezervácia a „no-show“ sa neplatia**; ak už bola zaplatená, peniaze sa nevracajú (no refunds)
 - **Cieľový účet**: spravuje ho jedna z ownerov (banka zatiaľ neznáma)
 - **Unpaid reservations** po termíne splatnosti blokujú nové rezervácie
 
@@ -121,8 +121,14 @@ Ako presne dosiahneme kľúčové funkcie. Prečo sme sa rozhodli tak, ako sme s
 - **Peniaze v centoch (integer)**; sumu vždy počíta server (`500 × počet nocí`).
 - **Spoľahlivosť potvrdení:** overenie podpisu webhooku, idempotentné spracovanie (tabuľka prijatých
   udalostí s unikátnym ID – duplicitná udalosť sa preskočí), spracovanie v Sidekiq jobe.
-- **Platobná brána: zatiaľ nerozhodnutá.** Implementácia cez Strategy pattern
-  (`Payments::*Strategy`), aby sa dala vymeniť alebo doplniť.
+- **Zrušená rezervácia a „no-show“ (neprišiel) sa neplatia** – platba vzniká iba za uskutočnený
+  pobyt. Ak bola zaplatená vopred, peniaze sa nevracajú (no refunds).
+- **Platobná brána – Strategy pattern** (`Payments::*Strategy`):
+  1. **`StripeStrategy`** – teraz, v **test móde** (zadarmo): Stripe Checkout, webhook
+     `checkout.session.completed`.
+  2. **`BankTransferStrategy`** – neskôr: prevod na účet chaty vo **Fio banke**; Sidekiq job
+     pravidelne sťahuje pohyby z (bezplatného) Fio API a páruje ich podľa **variabilného symbolu**
+     (= ID rezervácie). 0 € poplatky, žiadne ručné označovanie.
 
 ### ⚡ Živý kalendár obsadenosti
 - Kalendár mesiaca sa vykresľuje **na serveri** (partial); Stimulus iba na výber rozsahu dátumov –
@@ -150,8 +156,10 @@ Ako presne dosiahneme kľúčové funkcie. Prečo sme sa rozhodli tak, ako sme s
 - Per-user **iCal feed** `/calendar/<token>.ics` (gem `icalendar`), token sa dá pregenerovať.
 
 ### ❓ Otvorené otázky
-- Platobná brána a čí/aký bude cieľový účet.
-- Platí sa za rezerváciu, ktorú hosť zrušil pred príchodom? A za „no-show“ (neprišiel a nezrušil)?
+- **Ako systém zistí „no-show“?** Rezervácia, ktorá nebola zrušená, vyzerá po `check_out` rovnako
+  ako uskutočnený pobyt.
+- Dohoda s ownermi: založenie účtu chaty vo Fio banke (alebo ostrý Stripe účet) – registrovať sa
+  musí majiteľ účtu.
 
 ---
 
