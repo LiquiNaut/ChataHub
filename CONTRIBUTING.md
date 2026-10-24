@@ -88,7 +88,7 @@ bundle exec brakeman     # no new warnings
 The PR template mirrors the issue format and is written **in Slovak**: `Closes #<issue>`,
 **Čo a prečo**, **Zmeny**, **Technológie** (if new), **Edge cases**, **Ako otestovať lokálne**
 (concrete steps on localhost with expected results), **Kontrola**. The PR title equals the issue
-title (English, type in UPPERCASE). No tool/AI attribution lines in the description. If a stack/architecture decision was made, add an entry to `docs/decision_log.md`.
+title (English, type in UPPERCASE). No tool/AI attribution lines in the description, and no `Co-Authored-By` AI trailers in commits. If a stack/architecture decision was made, add an entry to `docs/decision_log.md`.
 
 ## Releases & deploys
 

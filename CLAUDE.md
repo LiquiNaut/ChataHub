@@ -87,7 +87,7 @@ See the "Technické rozhodnutia" section of `docs/chatahub_project_plan.md` for 
   - **PR:** same title as the issue, body in **Slovak** mirroring the issue sections plus
     *Ako otestovať lokálne*, `Closes #<issue>`, no "Generated with Claude Code"/attribution line.
     Merge only after the user tested it locally and approved.
-  - **Commits:** Conventional Commits.
+  - **Commits:** Conventional Commits, no `Co-Authored-By: Claude …` trailer.
 - CI (`.github/workflows/ci.yml`) runs three jobs on PRs and pushes to `master`:
   `scan_ruby` (Brakeman), `scan_js` (`bin/importmap audit`), `lint` (RuboCop). There is
   **no RSpec job in CI** — run `bundle exec rspec` locally before pushing.
