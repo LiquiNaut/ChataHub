@@ -47,10 +47,10 @@ type and the issue label; the description says in a few words what the branch ch
 | `feat/`     | New feature                              | `feat/12-devise-auth`            |
 | `fix/`      | Bug fix                                  | `fix/31-reservation-overlap`     |
 | `chore/`    | Tooling, deps, config                    | `chore/40-bump-rails-8-1`        |
-| `refactor/` | Code change without behaviour change     | `refactor/69-cabin-price-cents`  |
-| `docs/`     | Documentation only                       | `docs/68-issue-pr-conventions`   |
+| `refactor/` | Code change without behaviour change     | `refactor/27-cabin-price-cents`  |
+| `docs/`     | Documentation only                       | `docs/26-issue-pr-docs`         |
 | `test/`     | Tests only                               | `test/45-cabin-validations`      |
-| `ci/`       | CI / CD pipeline                         | `ci/70-rspec-job`                |
+| `ci/`       | CI / CD pipeline                         | `ci/28-rspec-job`                |
 
 Work without an issue (e.g. Dependabot bumps) may omit the number.
 
