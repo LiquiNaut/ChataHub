@@ -1,25 +1,35 @@
-## Summary
+Closes #
 
-<!-- What does this PR change and why? Link any related issue. -->
+<!--
+Title: Conventional Commits style, same as the issue, e.g. `feat(reservations): prevent overlapping bookings`.
+Branch: `<type>/<issue-number>-<short-kebab-description>`, e.g. `feat/12-reservation-overlap`.
+Delete sections that don't apply.
+-->
 
-## Type of change
+## What & why
 
-- [ ] feat — new feature
-- [ ] fix — bug fix
-- [ ] chore — tooling / deps / config
-- [ ] refactor — no behaviour change
-- [ ] docs — documentation only
-- [ ] test — tests only
+<!-- 1–3 sentences in plain language. -->
 
-## Checklist
+## Changes
 
-- [ ] Branch follows naming convention (`feat/`, `fix/`, …)
-- [ ] Commits follow Conventional Commits
-- [ ] `bundle exec rspec` passes
-- [ ] `bundle exec rubocop` has no new offenses
-- [ ] `bundle exec brakeman` has no new warnings
+-
+
+## Technologies
+
+<!-- Only if something new is added: **name** – what it is in one sentence → how it is used here -->
+
+- **** –  →
+
+## Edge cases
+
+<!-- situation → how the system behaves (and where it is tested) -->
+
+- →
+
+## Test plan
+
+- [ ] `just test` passes (new behaviour covered by specs)
+- [ ] `just lint` — no new RuboCop offenses
+- [ ] `bundle exec brakeman` — no new warnings
 - [ ] Schema annotations regenerated if migrations changed (`bin/rails annotate`)
-
-## Notes for reviewers
-
-<!-- Anything reviewers should pay special attention to. -->
+- [ ] Decision log entry added if a stack/architecture decision was made

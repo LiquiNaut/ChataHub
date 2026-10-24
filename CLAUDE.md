@@ -77,9 +77,15 @@ See the "Technické rozhodnutia" section of `docs/chatahub_project_plan.md` for 
 
 ## Workflow
 
-- Default branch is **`master`** (not `main`). Follow **GitHub Flow**: branch off `master`
-  (`feat/…`, `fix/…`, `chore/…`, `docs/…`), open a PR, merge once CI is green. Branch names
-  and commit messages follow **Conventional Commits**. See `CONTRIBUTING.md`.
+- Default branch is **`master`** (not `main`). Follow **GitHub Flow** — no `develop` or deploy
+  branch; releases are tags (`v0.x.0` per milestone). See `CONTRIBUTING.md`.
+- **Always** follow the formats in `CONTRIBUTING.md` and the `.github/` templates:
+  - **Issue** (one per branch/PR, in a milestone): title `<type>(<scope>): …` in English + matching
+    label; body in Slovak with *Čo a prečo*, *Úlohy*, *Technológie* (new tech: what it is → how it's
+    used here), *Edge cases* (bullets), *Hotovo, keď*.
+  - **Branch:** `<type>/<issue-number>-<short-kebab-description>`, e.g. `feat/12-devise-auth`.
+  - **PR:** same title as the issue, body in English mirroring the issue sections, `Closes #<issue>`.
+  - **Commits:** Conventional Commits.
 - CI (`.github/workflows/ci.yml`) runs three jobs on PRs and pushes to `master`:
   `scan_ruby` (Brakeman), `scan_js` (`bin/importmap audit`), `lint` (RuboCop). There is
   **no RSpec job in CI** — run `bundle exec rspec` locally before pushing.
@@ -89,8 +95,8 @@ See the "Technické rozhodnutia" section of `docs/chatahub_project_plan.md` for 
 - **Dependency updates:** green CI ≠ working app (CI runs no tests and never boots the app). For
   major-version bumps read the changelog and verify in the container (`just upd`, `just test`, boot
   `/up`). Watch for dependencies a bump silently drops from `Gemfile.lock`.
-- **Language:** project docs (`docs/*.md` — plan, decision log) are in **Slovak**; code, comments,
-  README, commit messages and PR descriptions are in **English**.
+- **Language:** project docs (`docs/*.md` — plan, decision log) and issue bodies are in **Slovak**;
+  code, comments, README, issue/PR titles, commit messages and PR descriptions are in **English**.
 
 ## Testing
 
