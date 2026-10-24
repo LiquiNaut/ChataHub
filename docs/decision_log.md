@@ -20,6 +20,59 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 
 ---
 
+## 2026-10-24 — Schválený dizajn: mobile-first, pastelové farby, svetlý aj tmavý režim
+**Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #88)
+
+**Kontext:** Pred prvou obrazovkou (#72) sme chceli jednotný vzhľad. Väčšina používateľov bude na mobile.
+
+**Rozhodnutie:** Návrh na plátne „ChataHub UI“: písmo Plus Jakarta Sans, šalviovo zelená (primárna),
+levanduľová (obsadené), broskyňová (upozornenia), chladné neutrálne pozadie; každá obrazovka na mobile
+aj desktope, svetlý aj tmavý režim. Navigácia dole (mobil) / hore (desktop). Farby sa prenesú do
+Tailwind 4 `@theme` tokenov. Čistý Tailwind + vlastné partials, bez TailwindUI (platený) a zatiaľ bez Flowbite.
+
+**Dôvod:** Jednotný vzhľad od začiatku je lacnejší než prerábanie. Pastelové farby s tmavým textom
+spĺňajú kontrast WCAG AA (≥ 4.5:1).
+
+**Kedy prehodnotiť:** po prvom použití rodinou na mobile.
+
+## 2026-10-24 — Cena 5 € za osobu a noc, deti zadarmo
+**Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #91)
+
+**Kontext:** Pôvodne 5 € za noc za celú rezerváciu. Na chatu však často ide viac ľudí.
+
+**Rozhodnutie:** Cena = 5 € × noci × osoby. Osoby = rezervujúci + vybraní členovia rodiny + počet
+ďalších dospelých hostí bez účtu. **Deti sa neplatia** – uvedú sa v poznámke, samostatné počítadlo nie je.
+
+**Dôvod:** Férovejšie rozdelenie nákladov. Počítadlo hostí je nutné, inak by sa ľudia bez účtu
+do ceny nezapočítali. Samostatná evidencia detí by bola YAGNI.
+
+**Kedy prehodnotiť:** ak by sa mali deti platiť (napr. znížená cena) alebo by sa cena menila podľa sezóny.
+
+## 2026-10-24 — Spolucestujúci a poznámka pri rezervácii, mená viditeľné všetkým
+**Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #91)
+
+**Kontext:** V kalendári bolo vidno iba „Obsadené“. Rodina chce vedieť, kto je na chate a s kým.
+
+**Rozhodnutie:** V kalendári je meno rezervujúceho; po kliknutí detail so spolucestujúcimi
+(členovia + „+ N hostia“) a voliteľnou poznámkou. Viditeľné pre všetkých členov.
+
+**Dôvod:** Uzavretá rodinná skupina (~20 ľudí) – súkromie medzi členmi nie je problém, prehľad je užitočný.
+
+**Kedy prehodnotiť:** ak by sa skupina rozšírila mimo užšej rodiny.
+
+## 2026-10-24 — Pridaná Nástenka: poznámky a zásoby
+**Typ:** Pridané · **PR:** _doplniť_ (issue #92)
+
+**Kontext:** Plán mal „Food board“ (zoznam potravín). Pribudol nápad na poznámky s menom autora.
+
+**Rozhodnutie:** Nástenka s dvoma časťami: **Poznámky** (autor, dátum, majitelia môžu pripnúť) a
+**Zásoby** (zaškrtávací zoznam s menom, kto pridal). Najnovšie poznámky aj nad kalendárom (desktop).
+Bez komentárov a reakcií. Milestone M6.
+
+**Dôvod:** Nahrádza odkazy v rodinnom chate, ktoré sa strácajú; zásoby pokrývajú pôvodný Food board.
+
+**Kedy prehodnotiť:** ak by ľudia chceli na poznámky reagovať.
+
 ## 2026-10-24 — Platobná brána: teraz Stripe (test mód), neskôr prevod + Fio API
 **Typ:** Rozhodnuté · **PR:** #67
 

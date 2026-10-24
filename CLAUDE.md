@@ -29,7 +29,13 @@ Invariants every feature must respect (details and open questions in the project
 - Reservations are **auto-confirmed** (first come, first served), **minimum 1 night**.
 - Stay dates are a **half-open range `[check_in, check_out)`** — check-out day may be the next guest's
   check-in day. Overlaps are prevented by a **DB exclusion constraint**, not only a model validation.
-- Price is **€5 per night**, computed server-side. Store money as **integer cents**, never floats.
+- Price is **€5 per person per night** — persons = the reserving member + selected family members
+  + extra adult guests without an account; **children are free** (mentioned in the note). Computed
+  server-side; store money as **integer cents**, never floats.
+- A reservation records **who is going** (family members + extra adult guest count) and an optional
+  **note**. Names, companions and notes are **visible to all members** (closed family group).
+- **Nástenka** (board) = notes with author (owners can pin) + a supplies checklist. No comments or
+  reactions.
 - **No refunds**: a guest may cancel, but a payment is never returned.
 - **Payment timing:** the guest may pay at booking but doesn't have to; payment is due **7 days after
   `check_out`**. An overdue unpaid reservation blocks creating new ones.
@@ -120,6 +126,12 @@ and record it in the decision log. As features are built out, follow these conve
 - Background work (SMS, email, weather fetch, calendar sync) goes through Sidekiq jobs in `app/jobs/`.
 - Models carry `# == Schema Information` annotation comments (kept in sync via `annot8`);
   regenerate after migrations rather than hand-editing them.
+
+## UI
+
+Follow the approved design (canvas "ChataHub UI", issue #88): mobile-first, light **and** dark mode,
+Plus Jakarta Sans, pastel palette defined as Tailwind 4 `@theme` tokens — use the tokens, never raw
+hex values in views. Touch targets ≥ 44 px, text contrast ≥ 4.5:1.
 
 ## Current State
 
