@@ -16,7 +16,7 @@ Ukázať schopnosť navrhnúť, implementovať a nasadiť produkčne pripravenú
 
 | Vrstva              | Technológia                                   |
 | ------------------- | --------------------------------------------- |
-| **Ruby/Rails**      | Ruby 3.4.4 + Rails 8.1                       |
+| **Ruby/Rails**      | Ruby 4.0 + Rails 8.1                         |
 | **Frontend**        | Hotwire (Turbo + Stimulus) + Tailwind CSS    |
 | **UI Components**   | Flowbite + TailwindUI                        |
 | **Database**        | PostgreSQL (primárna) + Redis (cache/jobs)   |
@@ -55,7 +55,7 @@ Ukázať schopnosť navrhnúť, implementovať a nasadiť produkčne pripravenú
 
 ### 💳 **Platby**
 - **Platobná brána**: Stripe (počas vývoja v test móde); neskôr prevod na účet vo Fio banke s automatickým párovaním cez Fio API
-- **Cena**: 5 € za osobu a noc (rezervujúci + vybraní členovia + ďalší dospelí hostia); **deti zadarmo** (uvedú sa v poznámke)
+- **Cena**: 2,50 € za osobu a noc (rezervujúci + vybraní členovia + ďalší dospelí hostia); **deti zadarmo** (uvedú sa v poznámke)
 - **Zaplatiť hneď** pri rezervácii je možné, ale nie povinné; **najneskôr do 7 dní po skončení pobytu**
 - **Platbu označuje ako zaplatenú iba systém** (po potvrdení od platobnej brány), nikdy človek
 - **Zrušená rezervácia a „no-show“ sa neplatia**; ak už bola zaplatená, peniaze sa nevracajú (no refunds)
@@ -120,7 +120,7 @@ Ako presne dosiahneme kľúčové funkcie. Prečo sme sa rozhodli tak, ako sme s
   **7 dní po `check_out`**. Po splatnosti nezaplatená rezervácia blokuje vytváranie nových.
 - **Zaplatenie označuje výhradne systém** na základe potvrdenia od platobnej brány (webhook /
   bankové API) – nikto z rolí nemá tlačidlo „zaplatené“.
-- **Peniaze v centoch (integer)**; sumu vždy počíta server (`500 × noci × osoby`, osoby = rezervujúci + vybraní členovia + ďalší dospelí hostia; deti sa nepočítajú). Cena za noc sa pri vytvorení skopíruje do rezervácie.
+- **Peniaze v centoch (integer)**; sumu vždy počíta server (`250 × noci × osoby`, osoby = rezervujúci + vybraní členovia + ďalší dospelí hostia; deti sa nepočítajú). Cena za noc sa pri vytvorení skopíruje do rezervácie.
 - **Spoľahlivosť potvrdení:** overenie podpisu webhooku, idempotentné spracovanie (tabuľka prijatých
   udalostí s unikátnym ID – duplicitná udalosť sa preskočí), spracovanie v Sidekiq jobe.
 - **Zrušená rezervácia a „no-show“ (neprišiel) sa neplatia** – platba vzniká iba za uskutočnený
@@ -219,7 +219,7 @@ PhotoProcessingJob
 > "Vyriešil som skutočný problém v našej rodine - plánovanie chaty bolo chaotické, teraz máme automatizovaný systém s platbami."
 
 ### 2. **Modern Rails Stack**
-> "Použil som najnovší Rails 8.1 s Ruby 3.4.4, Hotwire pre reactive UI, Tailwind CSS s Flowbite komponentmi."
+> "Použil som najnovší Rails 8.1 s Ruby 4.0, Hotwire pre reactive UI, Tailwind CSS s Flowbite komponentmi."
 
 ### 3. **Unique Features**
 > "Implementoval som photo management s ActiveStorage, metaprogramovanie pre dynamické handlery a calendar sync s Apple/Google kalendárom."
@@ -263,9 +263,9 @@ PhotoProcessingJob
 ### **Docker Setup**
 ```dockerfile
 # Multi-stage build
-FROM ruby:3.4.4-alpine AS builder
+FROM ruby:4.0.9-alpine AS builder
 # optimized layers
-FROM ruby:3.4.4-alpine AS runner
+FROM ruby:4.0.9-alpine AS runner
 ```
 
 ### **Kamal Configuration**

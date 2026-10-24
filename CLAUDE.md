@@ -29,7 +29,7 @@ Invariants every feature must respect (details and open questions in the project
 - Reservations are **auto-confirmed** (first come, first served), **minimum 1 night**.
 - Stay dates are a **half-open range `[check_in, check_out)`** — check-out day may be the next guest's
   check-in day. Overlaps are prevented by a **DB exclusion constraint**, not only a model validation.
-- Price is **€5 per person per night** — persons = the reserving member + selected family members
+- Price is **€2.50 per person per night** — persons = the reserving member + selected family members
   + extra adult guests without an account; **children are free** (mentioned in the note). Computed
   server-side; store money as **integer cents**, never floats.
 - A reservation records **who is going** (family members + extra adult guest count) and an optional
@@ -52,7 +52,7 @@ See the "Technické rozhodnutia" section of `docs/chatahub_project_plan.md` for 
 
 ## Tech Stack
 
-- Ruby 3.4.4, Rails 8.1.x (do NOT upgrade to Ruby 4.0 yet — ecosystem not ready)
+- Ruby 4.0.9 (`.ruby-version`, Dockerfile), Rails 8.1.x
 - PostgreSQL (primary DB), Redis (Sidekiq broker + cache)
 - Hotwire (Turbo + Stimulus) + Tailwind CSS 4.x
 - Propshaft asset pipeline — **no Sprockets** (sprockets-rails + Propshaft together break boot
@@ -150,8 +150,8 @@ registration, roles), then Reservation core with overlap prevention (TDD).
 - App code lives in WSL2 filesystem (`~/projects/chatahub`), NOT in `/mnt/c/` — critical for
   I/O performance
 - VSCode + Remote WSL as primary editor
-- Dockerfile uses `ruby:3.4.4-alpine`; if native gem build issues arise, switch to
-  `ruby:3.4.4-slim` (Debian-based)
+- Dockerfile uses `ruby:4.0.9-alpine`; if native gem build issues arise, switch to
+  `ruby:4.0.9-slim` (Debian-based)
 
 ## Mobile Strategy
 

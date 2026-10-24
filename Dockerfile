@@ -2,7 +2,7 @@
 
 # --- Builder Stage ---
 # Použije presnú verziu Ruby z tvojho plánu
-FROM ruby:3.4.4-alpine AS builder
+FROM ruby:4.0.9-alpine AS builder
 
 # Inštalácia závislostí pre buildovanie gemov
 RUN apk add --no-cache build-base git libpq-dev postgresql-client nodejs npm yaml-dev vips-dev
@@ -17,7 +17,7 @@ RUN bundle install
 
 # --- Runner Stage ---
 # Použije rovnakú base image pre menší finálny image
-FROM ruby:3.4.4-alpine AS runner
+FROM ruby:4.0.9-alpine AS runner
 
 # Inštalácia run-time závislostí
 # vips = runtime knižnica pre image_processing/ruby-vips (ActiveStorage varianty fotiek).
