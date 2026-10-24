@@ -20,7 +20,6 @@ Ukázať schopnosť navrhnúť, implementovať a nasadiť produkčne pripravenú
 | **Frontend**        | Hotwire (Turbo + Stimulus) + Tailwind CSS    |
 | **UI Components**   | Flowbite + TailwindUI                        |
 | **Database**        | PostgreSQL (primárna) + Redis (cache/jobs)   |
-| **Search**          | Elasticsearch + Searchkick gem               |
 | **Deploy**          | Kamal + Docker (na Fly.io alebo Railway)     |
 | **Storage**         | ActiveStorage + cloud (S3/Cloudflare R2)     |
 | **Auth**            | Devise + Pundit (autorizácia)                |
@@ -78,12 +77,6 @@ Ukázať schopnosť navrhnúť, implementovať a nasadiť produkčne pripravenú
 - **View & download** pre všetkých userov
 - **Lazy loading** a optimalizácia
 
-### 🔍 **Elasticsearch Search**
-- **Full-text search** cez rezervácie, userrov, poznámky
-- **Faceted search** - filtrovanie podľa dátumu, usera
-- **Autocomplete** suggestions
-- **Search analytics** pre admin
-
 ### 🧩 **Metaprogramovanie**
 - **Dynamic notification handlers** pre rôzne typy eventov
 - **Flexible pricing rules** system
@@ -114,9 +107,7 @@ Payment (Stripe)
 Photo (ActiveStorage attachments)
 FoodItem (nástenka)
 
-# Search & Analytics
-SearchableRecord (metaprogramming base)
-SearchAnalytics
+# Analytics
 EventLog
 
 # Support models
@@ -135,7 +126,6 @@ Notifications::SendSmsService
 Weather::FetchService
 Calendar::SyncService
 Photos::ProcessService
-Search::IndexService
 ```
 
 ### **Jobs**
@@ -146,7 +136,6 @@ SyncCalendarJob
 FetchWeatherJob
 SendEmailReminderJob
 PhotoProcessingJob
-SearchIndexJob
 ```
 
 ---
@@ -157,16 +146,16 @@ SearchIndexJob
 > "Vyriešil som skutočný problém v našej rodine - plánovanie chaty bolo chaotické, teraz máme automatizovaný systém s platbami."
 
 ### 2. **Modern Rails Stack**
-> "Použil som najnovší Rails 8.1 s Ruby 3.4.4, Hotwire pre reactive UI, Tailwind CSS s Flowbite komponentmi a Elasticsearch pre pokročilé vyhľadávanie."
+> "Použil som najnovší Rails 8.1 s Ruby 3.4.4, Hotwire pre reactive UI, Tailwind CSS s Flowbite komponentmi."
 
 ### 3. **Unique Features**
-> "Implementoval som photo management s ActiveStorage, metaprogramovanie pre dynamické handlery, Elasticsearch search a calendar sync s Apple/Google kalendárom."
+> "Implementoval som photo management s ActiveStorage, metaprogramovanie pre dynamické handlery a calendar sync s Apple/Google kalendárom."
 
 ### 4. **Metaprogramovanie**
 > "Použil som metaprogramovanie pre dynamické notification handlery a flexible business logic, čo ukázalo schopnosť písať DRY a rozšíriteľný kód."
 
-### 5. **Full-text Search**
-> "Implementoval som Elasticsearch s autocomplete a faceted search, čo bola skvelá praktika s NoSQL databázou a search engineom."
+### 5. **Vedomé technické rozhodnutia**
+> "Zvážil som Elasticsearch, ale pri jednej chate a ~20 používateľoch by priniesol viac prevádzkovej zložitosti než úžitku, tak som ho vynechal. Každé takéto rozhodnutie mám zdokumentované v decision logu."
 
 ---
 
@@ -192,7 +181,6 @@ SearchIndexJob
 - **Twilio** pre SMS
 - **OpenWeatherMap** pre počasie
 - **Apple/Google Calendar APIs**
-- **Elasticsearch** pre search
 - **ActiveStorage** + cloud storage
 
 ---
@@ -233,7 +221,6 @@ registry:
 
 - **Dark mode** support s Tailwind
 - **Photo management** s ActiveStorage
-- **Elasticsearch** search s autocomplete
 - **Metaprogramovanie** pre dynamic handlers
 - **Calendar sync** (Apple/Google)
 - **Weather integration** pre planning
@@ -249,7 +236,7 @@ registry:
 | ------------------------ | ------------------------------------------ |
 | **Business Understanding** | Practical solution, no-refund policy     |
 | **Modern Rails**         | Rails 8.1, Hotwire, Tailwind + Flowbite  |
-| **Search & NoSQL**       | Elasticsearch implementation              |
+| **Technical Judgment**   | Decision log (`docs/decision_log.md`)     |
 | **Metaprogramovanie**    | Dynamic handlers, flexible architecture  |
 | **File Management**      | ActiveStorage + cloud integration        |
 | **API Integration**      | Stripe, Twilio, Weather, Calendar sync   |
@@ -272,7 +259,6 @@ registry:
 - Photo upload + management
 
 ### **Week 5-6: Advanced Features**
-- Elasticsearch setup + search
 - Metaprogramovanie patterns
 - Weather API integration
 - Calendar sync (Apple/Google)

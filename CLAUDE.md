@@ -5,11 +5,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project
 
 ChataHub is a Rails 8 family cabin reservation system ("first come, first served" booking with Stripe
-payments, Twilio SMS notifications, weather and calendar integration, photo management, and Elasticsearch
-search). The project is in early scaffolding stage — only the `Cabin` model exists so far.
+payments, Twilio SMS notifications, weather and calendar integration, and photo management). The project
+is in early scaffolding stage — only the `Cabin` model exists so far.
 
 See `docs/chatahub_project_plan.md` (feature/roadmap) and `docs/project_structure_patterns.md` (intended
 architecture/design patterns) for the full target design before adding new domains.
+
+`docs/decision_log.md` is a dated log of what was added or removed from the project and why. Check it
+before re-introducing something that was dropped (e.g. Elasticsearch), and add an entry for every
+notable stack/architecture decision.
 
 ## Tech Stack
 
@@ -21,7 +25,7 @@ architecture/design patterns) for the full target design before adding new domai
 - Devise + Pundit for auth/authorization
 - Sidekiq + sidekiq-cron for background jobs (Active Job adapter is `:sidekiq`)
 - Solid Cache + Solid Cable included as Rails 8 defaults (but jobs go through Sidekiq, not Solid Queue)
-- Stripe (payments), Twilio (SMS), Searchkick + Elasticsearch (search)
+- Stripe (payments), Twilio (SMS)
 - RSpec + FactoryBot + Shoulda Matchers, Bullet (N+1 detection, enabled in dev **and** test)
 
 ## Commands
@@ -58,11 +62,7 @@ As features are built out, follow these conventions:
 - **Service Objects** in `app/services/` for business logic (e.g. `Reservations::CreateService`,
   `Payments::ProcessService`) — keep controllers and models thin.
 - **Strategy pattern** for payment processing variants (`Payments::StrategyService`).
-- **Builder pattern** for constructing Elasticsearch queries (`SearchBuilders`).
-- **Searchable concern** (metaprogramming-based) for adding Elasticsearch indexing/search methods
-  to models — see the `Searchable` concern example in `docs/project_structure_patterns.md`.
-- Background work (SMS, email, weather fetch, calendar sync, search indexing) goes through
-  Sidekiq jobs in `app/jobs/`.
+- Background work (SMS, email, weather fetch, calendar sync) goes through Sidekiq jobs in `app/jobs/`.
 - Models carry `# == Schema Information` annotation comments (kept in sync via `annot8`);
   regenerate after migrations rather than hand-editing them.
 
@@ -74,7 +74,7 @@ registration), then Reservation core with overlap prevention (TDD).
 
 ## Development Environment
 
-- Docker Compose for services (Postgres, Redis, Elasticsearch) — see `compose.yml`. `app`/`sidekiq`
+- Docker Compose for services (Postgres, Redis) — see `compose.yml`. `app`/`sidekiq`
   wait for healthy dependencies. Postgres is on host port **5433** (dev DB `chata_hub_development`);
   `bundle exec rspec`/`bin/rails` outside the containers need that DB running or they fail with a
   Postgres connection/auth error.

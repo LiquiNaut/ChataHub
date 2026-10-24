@@ -11,7 +11,6 @@ This project solves a real-world problem: the chaos of managing family cabin boo
 - **Backend:** Ruby 3.4.4, Rails 8.1 (Service Objects, Concerns)
 - **Frontend:** Hotwire (Turbo & Stimulus) via importmap, TailwindCSS 4, Propshaft asset pipeline
 - **Database:** PostgreSQL, Redis (Caching/Jobs)
-- **Search:** Elasticsearch + Searchkick
 - **Integrations:** Stripe (Payments), Twilio (SMS), OpenWeatherMap, ActiveStorage (S3)
 - **DevOps:** Docker, Kamal, GitHub Actions
 
@@ -23,9 +22,11 @@ The application is designed with a focus on extensibility and clean code princip
 
 - **Service Objects:** Encapsulation of business logic (e.g., `Reservations::CreateService` for atomic reservation creation including payment).
 - **Strategy Pattern:** Flexible payment processing implementation (`Payments::StrategyService`).
-- **Builder Pattern:** Construction of complex Elasticsearch queries (`SearchBuilders`).
-- **Metaprogramming:** Dynamic generation of notification handlers and search methods.
+- **Metaprogramming:** Dynamic generation of notification handlers.
 - **Observer Pattern:** Decoupling notifications from core business logic.
+
+Notable stack and architecture decisions — including what was deliberately left out and why — are
+tracked in the [decision log](docs/decision_log.md).
 
 ---
 
@@ -35,7 +36,6 @@ The application is designed with a focus on extensibility and clean code princip
 2.  **Payments:** Stripe integration (Apple/Google Pay) implementing a "no-refund" policy.
 3.  **Notifications:** Automated SMS and emails via background jobs (Sidekiq).
 4.  **Food Board:** Inventory tracking for cabin supplies.
-5.  **Smart Search:** Full-text search across history and notes (Elasticsearch).
 
 ---
 
@@ -68,7 +68,7 @@ The application runs at: `http://localhost:3000`.
 > `just ci`, `just sh`. Run `just` to list them. DB-touching recipes run inside the
 > container automatically.
 
-> The `app` and `sidekiq` services wait for healthy `db`, `redis`, and `elasticsearch`
+> The `app` and `sidekiq` services wait for healthy `db` and `redis`
 > containers before booting (Compose healthchecks), so the first `up` won't crash on a
 > not-yet-ready database. Postgres is exposed on host port **5433** to avoid clashing
 > with a local install. The `.env` file is optional for a basic boot — add it once you

@@ -1,8 +1,6 @@
 source "https://rubygems.org"
 # Dotenv for environment variables
 gem "dotenv-rails", "~> 3.2"
-# Logging with Logstash to Elasticsearch
-gem "logstash-event", "~> 1.2", ">= 1.2.02"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.1.3"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
@@ -54,10 +52,6 @@ gem "pundit"
 # Background Jobs
 gem "sidekiq"
 gem "sidekiq-cron"
-
-# Search
-gem "searchkick"
-gem "elasticsearch", "~> 8.0"
 
 # Payments
 gem "stripe"
