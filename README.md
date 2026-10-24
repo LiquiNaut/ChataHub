@@ -8,7 +8,7 @@ This project solves a real-world problem: the chaos of managing family cabin boo
 
 ## 🛠 Tech Stack
 
-- **Backend:** Ruby 3.4.4, Rails 8.1 (Service Objects, Concerns)
+- **Backend:** Ruby 4.0, Rails 8.1 (Service Objects, Concerns)
 - **Frontend:** Hotwire (Turbo & Stimulus) via importmap, TailwindCSS 4, Propshaft asset pipeline
 - **Database:** PostgreSQL, Redis (Caching/Jobs)
 - **Integrations:** Stripe (Payments), Twilio (SMS), OpenWeatherMap, ActiveStorage (S3)

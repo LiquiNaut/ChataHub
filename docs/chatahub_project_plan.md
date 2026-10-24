@@ -16,7 +16,7 @@ Ukázať schopnosť navrhnúť, implementovať a nasadiť produkčne pripravenú
 
 | Vrstva              | Technológia                                   |
 | ------------------- | --------------------------------------------- |
-| **Ruby/Rails**      | Ruby 3.4.4 + Rails 8.1                       |
+| **Ruby/Rails**      | Ruby 4.0 + Rails 8.1                         |
 | **Frontend**        | Hotwire (Turbo + Stimulus) + Tailwind CSS    |
 | **UI Components**   | Flowbite + TailwindUI                        |
 | **Database**        | PostgreSQL (primárna) + Redis (cache/jobs)   |
@@ -215,7 +215,7 @@ PhotoProcessingJob
 > "Vyriešil som skutočný problém v našej rodine - plánovanie chaty bolo chaotické, teraz máme automatizovaný systém s platbami."
 
 ### 2. **Modern Rails Stack**
-> "Použil som najnovší Rails 8.1 s Ruby 3.4.4, Hotwire pre reactive UI, Tailwind CSS s Flowbite komponentmi."
+> "Použil som najnovší Rails 8.1 s Ruby 4.0, Hotwire pre reactive UI, Tailwind CSS s Flowbite komponentmi."
 
 ### 3. **Unique Features**
 > "Implementoval som photo management s ActiveStorage, metaprogramovanie pre dynamické handlery a calendar sync s Apple/Google kalendárom."
@@ -259,9 +259,9 @@ PhotoProcessingJob
 ### **Docker Setup**
 ```dockerfile
 # Multi-stage build
-FROM ruby:3.4.4-alpine AS builder
+FROM ruby:4.0.9-alpine AS builder
 # optimized layers
-FROM ruby:3.4.4-alpine AS runner
+FROM ruby:4.0.9-alpine AS runner
 ```
 
 ### **Kamal Configuration**
