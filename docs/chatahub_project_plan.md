@@ -47,7 +47,7 @@ Ukázať schopnosť navrhnúť, implementovať a nasadiť produkčne pripravenú
 - **Automatické potvrdenie** (žiadne čakanie na schválenie)
 - **Vlastné zrušenie** rezervácie (platba sa nevráti)
 - **Overlapping prevention** - nemožnosť rezervovať obsadené termíny
-- **Minimálna dĺžka pobytu** (napr. min. 2 dni)
+- **Minimálna dĺžka pobytu**: 1 noc
 - **Blokovanie** ďalších rezervácií pri nezaplatenej existujúcej
 
 ### 💳 **Platby**

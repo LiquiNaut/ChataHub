@@ -15,6 +15,20 @@ architecture/design patterns) for the full target design before adding new domai
 before re-introducing something that was dropped (e.g. Elasticsearch), and add an entry for every
 notable stack/architecture decision.
 
+## Domain Rules
+
+Invariants every feature must respect (details and open questions in the project plan):
+
+- **One cabin**, a closed family group of **~20 invited users**. Size solutions to that — no
+  multi-tenant, search engine or scale-out machinery.
+- **Invite-only**: no public sign-up and no OAuth/social login; accounts are created from invitations.
+- Reservations are **auto-confirmed** (first come, first served), **minimum 1 night**.
+- Stay dates are a **half-open range `[check_in, check_out)`** — check-out day may be the next guest's
+  check-in day. Overlaps are prevented by a **DB exclusion constraint**, not only a model validation.
+- Price is **€5 per night**, computed server-side. Store money as **integer cents**, never floats.
+- **No refunds**: a guest may cancel, but a payment is never returned.
+- Payment provider and payment timing are **not decided yet** — don't build payment code until they are.
+
 ## Tech Stack
 
 - Ruby 3.4.4, Rails 8.1.x (do NOT upgrade to Ruby 4.0 yet — ecosystem not ready)
@@ -22,7 +36,10 @@ notable stack/architecture decision.
 - Hotwire (Turbo + Stimulus) + Tailwind CSS 4.x
 - Propshaft asset pipeline — **no Sprockets** (sprockets-rails + Propshaft together break boot
   with a `Propshaft::Assembly` TypeError — never re-add sprockets-rails)
-- Devise + Pundit for auth/authorization
+- Devise + Pundit for auth/authorization (invite-only; the `omniauth*` gems are not used for login)
+- Active Storage + `image_processing` 2.x for photo variants — **`ruby-vips` must stay
+  `require: false`**: autoloading it at boot loads libvips via FFI and crashes environments without
+  it (CI runners). Active Storage requires it lazily.
 - Sidekiq + sidekiq-cron for background jobs (Active Job adapter is `:sidekiq`)
 - Solid Cache + Solid Cable included as Rails 8 defaults (but jobs go through Sidekiq, not Solid Queue)
 - Stripe (payments), Twilio (SMS)
@@ -54,10 +71,25 @@ notable stack/architecture decision.
 - JS is wired via **importmap-rails** (`config/importmap.rb`, `app/javascript/application.js`,
   `bin/importmap`); the layout loads it with `javascript_importmap_tags`. Add packages with
   `bin/importmap pin <pkg>`, not npm/yarn.
+- **Dependency updates:** green CI ≠ working app (CI runs no tests and never boots the app). For
+  major-version bumps read the changelog and verify in the container (`just upd`, `just test`, boot
+  `/up`). Watch for dependencies a bump silently drops from `Gemfile.lock`.
+- **Language:** project docs (`docs/*.md` — plan, decision log) are in **Slovak**; code, comments,
+  README, commit messages and PR descriptions are in **English**.
 
-## Architecture Patterns (per docs/project_structure_patterns.md)
+## Testing
 
-As features are built out, follow these conventions:
+- TDD for domain logic: write the failing spec first.
+- Model specs (Shoulda Matchers for validations/associations), policy specs for Pundit, and
+  **request specs** for HTTP behaviour — no controller specs.
+- Test data via FactoryBot factories in `spec/factories/`.
+- Run through the container: `just test [path]`.
+
+## Architecture Patterns
+
+`docs/project_structure_patterns.md` is **aspirational, not mandatory**. Prefer the plain Rails way;
+introduce a pattern (decorator, event bus, builder, metaprogramming…) only when a real need appears,
+and record it in the decision log. As features are built out, follow these conventions:
 
 - **Service Objects** in `app/services/` for business logic (e.g. `Reservations::CreateService`,
   `Payments::ProcessService`) — keep controllers and models thin.
@@ -68,9 +100,11 @@ As features are built out, follow these conventions:
 
 ## Current State
 
+Keep this section short and update it at every milestone.
+
 Only the `Cabin` model is implemented (with RSpec + factory). No User/Devise, Reservation, or
 Payment models exist yet. Next milestone: Devise authentication + User model (invite-only
-registration), then Reservation core with overlap prevention (TDD).
+registration, roles), then Reservation core with overlap prevention (TDD).
 
 ## Development Environment
 
