@@ -20,6 +20,23 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 
 ---
 
+## 2026-10-25 — Upgrade Rails 8.1.3 → 8.1.4 (oprava kompatibility s `json` 3)
+**Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #96)
+
+**Kontext:** Dependabot PR #60 (rubocop-rails) pri rebase potichu povýšil nepriamu závislosť `json`
+2.19.9 → 3.1.0. ActiveSupport 8.1.3 volá `JSON.parse` s pozičným hashom, `json` 3 prijíma iba
+keyword arguments → čítanie session cookie padalo na `ArgumentError` (druhá návšteva stránky = 500).
+CI to nezachytilo: testy nečítali session a v teste je CSRF ochrana vypnutá.
+
+**Rozhodnutie:** Upgrade na Rails 8.1.4 (obsahuje opravu aj bezpečnostné záplaty z 8.1.3.1),
+`bundle update rails --conservative` (menia sa iba Rails gemy), v `Gemfile` `~> 8.1.4`.
+Regresný test šifruje a číta správu s metadátami rovnako ako session cookie.
+
+**Dôvod:** Oprava v zdroji je lepšia než zamknúť `json < 3` – to by problém len odložilo.
+
+**Kedy prehodnotiť:** — Poučenie: pri Dependabot PR čítať aj **diff `Gemfile.lock`**, nielen
+povýšený gem – tranzitívne major verzie sú najväčšie riziko (zapísané v CLAUDE.md).
+
 ## 2026-10-24 — Upgrade Ruby 3.4.4 → 4.0.9
 **Typ:** Rozhodnuté · **PR:** #90
 

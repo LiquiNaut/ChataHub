@@ -96,7 +96,8 @@ See the "Technické rozhodnutia" section of `docs/chatahub_project_plan.md` for 
   `bin/importmap pin <pkg>`, not npm/yarn.
 - **Dependency updates:** green CI ≠ working app (CI runs specs but never boots the app). For
   major-version bumps read the changelog and verify in the container (`just upd`, `just test`, boot
-  `/up`). Watch for dependencies a bump silently drops from `Gemfile.lock`.
+  `/up`). Watch for dependencies a bump silently drops from `Gemfile.lock`, and for **transitive
+  major bumps** in the lockfile diff (e.g. #60 pulled `json` 2 → 3 and broke session cookies, #96).
 - **Language:** project docs (`docs/*.md` — plan, decision log), issue bodies and PR descriptions
   are in **Slovak**; code, comments, README, issue/PR titles and commit messages are in **English**.
 
