@@ -50,10 +50,12 @@ Ukázať schopnosť navrhnúť, implementovať a nasadiť produkčne pripravenú
 - **Overlapping prevention** - nemožnosť rezervovať obsadené termíny
 - **Minimálna dĺžka pobytu**: 1 noc
 - **Blokovanie** ďalších rezervácií pri nezaplatenej existujúcej
+- **Kto ide**: k rezervácii sa dajú pridať členovia rodiny a počet ďalších dospelých hostí bez účtu, plus voliteľná poznámka
+- **Mená sú viditeľné všetkým**: v kalendári je vidno, kto má termín; po kliknutí aj spolucestujúcich a poznámku
 
 ### 💳 **Platby**
 - **Platobná brána**: Stripe (počas vývoja v test móde); neskôr prevod na účet vo Fio banke s automatickým párovaním cez Fio API
-- **Pevná cena**: 5€ za noc
+- **Cena**: 2,50 € za osobu a noc (rezervujúci + vybraní členovia + ďalší dospelí hostia); **deti zadarmo** (uvedú sa v poznámke)
 - **Zaplatiť hneď** pri rezervácii je možné, ale nie povinné; **najneskôr do 7 dní po skončení pobytu**
 - **Platbu označuje ako zaplatenú iba systém** (po potvrdení od platobnej brány), nikdy človek
 - **Zrušená rezervácia a „no-show“ sa neplatia**; ak už bola zaplatená, peniaze sa nevracajú (no refunds)
@@ -69,10 +71,10 @@ Ukázať schopnosť navrhnúť, implementovať a nasadiť produkčne pripravenú
 - **Weather API** - predpoveď počasia pre vybratý dátum
 - **Lokálna predpoveď** pre lokalizáciu chaty
 
-### 📋 **Food Board (Nástenka)**
-- **Potraviny** - čo sa donieslo/zjedlo/treba dokúpiť
-- **Jednoduchý CRUD** s checkboxmi
-- **Per-reservation** tracking
+### 📋 **Nástenka**
+- **Poznámky** – odkazy pre rodinu s menom autora a dátumom; majitelia môžu poznámku pripnúť navrch
+- **Zásoby** – zoznam vecí na chatu so zaškrtnutím „donesené“ a menom, kto položku pridal
+- Zatiaľ bez komentárov a reakcií
 
 ### 📸 **Photo Management**
 - **Upload fotiek** pre chatu a rezervácie
@@ -118,7 +120,7 @@ Ako presne dosiahneme kľúčové funkcie. Prečo sme sa rozhodli tak, ako sme s
   **7 dní po `check_out`**. Po splatnosti nezaplatená rezervácia blokuje vytváranie nových.
 - **Zaplatenie označuje výhradne systém** na základe potvrdenia od platobnej brány (webhook /
   bankové API) – nikto z rolí nemá tlačidlo „zaplatené“.
-- **Peniaze v centoch (integer)**; sumu vždy počíta server (`500 × počet nocí`).
+- **Peniaze v centoch (integer)**; sumu vždy počíta server (`250 × noci × osoby`, osoby = rezervujúci + vybraní členovia + ďalší dospelí hostia; deti sa nepočítajú). Cena za noc sa pri vytvorení skopíruje do rezervácie.
 - **Spoľahlivosť potvrdení:** overenie podpisu webhooku, idempotentné spracovanie (tabuľka prijatých
   udalostí s unikátnym ID – duplicitná udalosť sa preskočí), spracovanie v Sidekiq jobe.
 - **Zrušená rezervácia a „no-show“ (neprišiel) sa neplatia** – platba vzniká iba za uskutočnený
@@ -174,7 +176,9 @@ Cabin (singleton - jedna chata)
 Reservation 
 Payment (Stripe)
 Photo (ActiveStorage attachments)
-FoodItem (nástenka)
+ReservationParticipant (kto ide – členovia rodiny)
+Note (nástenka – poznámky)
+SupplyItem (nástenka – zásoby)
 
 # Analytics
 EventLog
@@ -293,7 +297,7 @@ registry:
 - **Metaprogramovanie** pre dynamic handlers
 - **Calendar sync** (Apple/Google)
 - **Weather integration** pre planning
-- **Food board** pre household management
+- **Nástenka** – poznámky a zásoby
 - **Simple analytics** dashboard
 - **SMS notifications** cez Twilio
 

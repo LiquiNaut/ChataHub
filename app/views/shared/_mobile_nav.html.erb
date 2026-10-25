@@ -1,0 +1,14 @@
+<%# locals: (items:, active:) %>
+<nav aria-label="Hlavná navigácia"
+     class="grid border-t border-line bg-surface pb-[env(safe-area-inset-bottom)]"
+     style="grid-template-columns: repeat(<%= items.size %>, minmax(0, 1fr))">
+  <% items.each do |item| %>
+    <%= link_to item[:path],
+          "aria-current": ("page" if item[:key] == active),
+          class: class_names("flex h-[68px] flex-col items-center justify-center gap-1 text-[11px]",
+                             item[:key] == active ? "font-bold text-accent" : "font-semibold text-muted") do %>
+      <%= render "shared/nav_icon", name: item[:key] %>
+      <%= item[:short_label] || item[:label] %>
+    <% end %>
+  <% end %>
+</nav>

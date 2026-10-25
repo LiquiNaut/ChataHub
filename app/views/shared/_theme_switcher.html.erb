@@ -1,0 +1,10 @@
+<div data-controller="theme" role="radiogroup" aria-label="Režim zobrazenia"
+     class="grid grid-cols-3 rounded-xl bg-subtle p-1">
+  <% { "system" => "Systém", "light" => "Svetlý", "dark" => "Tmavý" }.each do |theme, label| %>
+    <button type="button" role="radio" aria-checked="false"
+            data-theme-target="option" data-action="theme#select" data-theme-theme-param="<%= theme %>"
+            class="h-10 rounded-lg text-sm font-semibold text-muted aria-checked:bg-surface aria-checked:text-ink">
+      <%= label %>
+    </button>
+  <% end %>
+</div>

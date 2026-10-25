@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="sk">
   <head>
-    <title><%= content_for(:title) || "Chata Hub" %></title>
+    <title><%= content_for(:title) || "ChataHub" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <%# Apply saved theme before paint, avoids flash %>
+    <script>
+      try {
+        const theme = localStorage.getItem("theme")
+        if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme
+      } catch (e) {}
+    </script>
 
     <%= yield :head %>
 

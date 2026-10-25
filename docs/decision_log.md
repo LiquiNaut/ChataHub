@@ -37,6 +37,81 @@ Regresný test šifruje a číta správu s metadátami rovnako ako session cooki
 **Kedy prehodnotiť:** — Poučenie: pri Dependabot PR čítať aj **diff `Gemfile.lock`**, nielen
 povýšený gem – tranzitívne major verzie sú najväčšie riziko (zapísané v CLAUDE.md).
 
+## 2026-10-24 — Farby cez `light-dark()`, vlastné hostovanie písma, Tailwind watcher ako služba
+**Typ:** Rozhodnuté · **PR:** #95 (issue #88)
+
+**Kontext:** Prenos schváleného dizajnu do kódu. Tailwind, Turbo ani Stimulus neboli nainštalované.
+
+**Rozhodnutie:**
+- Farby sú Tailwind `@theme` tokeny s hodnotou `light-dark(svetlá, tmavá)`. Režim určuje
+  `color-scheme` – podľa systému, prepísateľný cez `data-theme` na `<html>`. Jedna trieda (`bg-surface`)
+  funguje v oboch režimoch, bez `dark:` variantov.
+- Písmo Plus Jakarta Sans je **hostované v aplikácii** (`app/assets/fonts`), nie z Google Fonts.
+- Tailwind sa v dev kompiluje v samostatnej compose službe `css` (`tailwindcss:watch[always]`);
+  `bin/dev` + foreman z inštalátora sme nepoužili. CI kompiluje Tailwind pred testami.
+- UI stavebné bloky ako helpery a partials (bez ViewComponent, bez Flowbite) + stránka `/styleguide`.
+
+**Dôvod:** `light-dark()` odstraňuje duplicitu svetlých/tmavých tried. Google Fonts posiela IP
+návštevníkov Googlu (v EÚ posudzované ako problém GDPR) a vlastné hostovanie je rýchlejšie.
+Všetko ostatné beží v Dockeri, tak aj Tailwind watcher. ViewComponent by bol pri pár komponentoch YAGNI.
+
+**Kedy prehodnotiť:** `light-dark()` vyžaduje Safari 17.5+ / Chrome 123+ / Firefox 120+;
+`allow_browser :modern` púšťa aj Safari 17.2–17.4, kde by tokeny nefungovali. Ak by sa ozval niekto
+so starším iPhonom, zvýšiť požiadavku v `allow_browser` alebo pridať záložné farby.
+
+## 2026-10-24 — Schválený dizajn: mobile-first, pastelové farby, svetlý aj tmavý režim
+**Typ:** Rozhodnuté · **PR:** #95 (issue #88)
+
+**Kontext:** Pred prvou obrazovkou (#72) sme chceli jednotný vzhľad. Väčšina používateľov bude na mobile.
+
+**Rozhodnutie:** Návrh na plátne „ChataHub UI“: písmo Plus Jakarta Sans, šalviovo zelená (primárna),
+levanduľová (obsadené), broskyňová (upozornenia), chladné neutrálne pozadie; každá obrazovka na mobile
+aj desktope, svetlý aj tmavý režim. Navigácia dole (mobil) / hore (desktop). Farby sa prenesú do
+Tailwind 4 `@theme` tokenov. Čistý Tailwind + vlastné partials, bez TailwindUI (platený) a zatiaľ bez Flowbite.
+
+**Dôvod:** Jednotný vzhľad od začiatku je lacnejší než prerábanie. Pastelové farby s tmavým textom
+spĺňajú kontrast WCAG AA (≥ 4.5:1).
+
+**Kedy prehodnotiť:** po prvom použití rodinou na mobile.
+
+## 2026-10-24 — Cena 2,50 € za osobu a noc, deti zadarmo
+**Typ:** Rozhodnuté · **PR:** #95 (issue #91)
+
+**Kontext:** Pôvodne 5 € za noc za celú rezerváciu. Na chatu však často ide viac ľudí.
+
+**Rozhodnutie:** Cena = **2,50 €** × noci × osoby (`price_per_night_cents` = 250). Osoby = rezervujúci + vybraní členovia rodiny + počet
+ďalších dospelých hostí bez účtu. **Deti sa neplatia** – uvedú sa v poznámke, samostatné počítadlo nie je.
+
+**Dôvod:** Férovejšie rozdelenie nákladov. Počítadlo hostí je nutné, inak by sa ľudia bez účtu
+do ceny nezapočítali. Samostatná evidencia detí by bola YAGNI.
+
+**Kedy prehodnotiť:** ak by sa mali deti platiť (napr. znížená cena) alebo by sa cena menila podľa sezóny.
+
+## 2026-10-24 — Spolucestujúci a poznámka pri rezervácii, mená viditeľné všetkým
+**Typ:** Rozhodnuté · **PR:** #95 (issue #91)
+
+**Kontext:** V kalendári bolo vidno iba „Obsadené“. Rodina chce vedieť, kto je na chate a s kým.
+
+**Rozhodnutie:** V kalendári je meno rezervujúceho; po kliknutí detail so spolucestujúcimi
+(členovia + „+ N hostia“) a voliteľnou poznámkou. Viditeľné pre všetkých členov.
+
+**Dôvod:** Uzavretá rodinná skupina (~20 ľudí) – súkromie medzi členmi nie je problém, prehľad je užitočný.
+
+**Kedy prehodnotiť:** ak by sa skupina rozšírila mimo užšej rodiny.
+
+## 2026-10-24 — Pridaná Nástenka: poznámky a zásoby
+**Typ:** Pridané · **PR:** #95 (issue #92)
+
+**Kontext:** Plán mal „Food board“ (zoznam potravín). Pribudol nápad na poznámky s menom autora.
+
+**Rozhodnutie:** Nástenka s dvoma časťami: **Poznámky** (autor, dátum, majitelia môžu pripnúť) a
+**Zásoby** (zaškrtávací zoznam s menom, kto pridal). Najnovšie poznámky aj nad kalendárom (desktop).
+Bez komentárov a reakcií. Milestone M6.
+
+**Dôvod:** Nahrádza odkazy v rodinnom chate, ktoré sa strácajú; zásoby pokrývajú pôvodný Food board.
+
+**Kedy prehodnotiť:** ak by ľudia chceli na poznámky reagovať.
+
 ## 2026-10-24 — Upgrade Ruby 3.4.4 → 4.0.9
 **Typ:** Rozhodnuté · **PR:** #90
 

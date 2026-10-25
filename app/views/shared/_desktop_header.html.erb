@@ -1,0 +1,14 @@
+<%# locals: (items:, active:) %>
+<header class="border-b border-line bg-surface">
+  <div class="mx-auto flex max-w-[1120px] flex-wrap items-center gap-x-7 gap-y-2 px-6 py-3">
+    <span class="text-lg font-bold text-accent">ChataHub</span>
+    <nav aria-label="Hlavná navigácia" class="flex flex-1 flex-wrap gap-1">
+      <% items.each do |item| %>
+        <%= link_to item[:label], item[:path],
+              "aria-current": ("page" if item[:key] == active),
+              class: class_names("rounded-[10px] px-3.5 py-2.5 text-[15px]",
+                                 item[:key] == active ? "bg-mine font-bold text-mine-ink" : "font-semibold text-ink hover:bg-subtle") %>
+      <% end %>
+    </nav>
+  </div>
+</header>
