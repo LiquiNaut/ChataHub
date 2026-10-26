@@ -6,7 +6,7 @@ gem "rails", "~> 8.1.4"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.5"
+gem "pg", "~> 1.7"
 # Redis for caching, sessions, and Action Cable
 gem "redis", "~> 5.4"
 # Use the Puma web server [https://github.com/puma/puma]
