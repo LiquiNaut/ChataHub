@@ -21,7 +21,7 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 ---
 
 ## 2026-10-31 — Pundit „všetko zakázané“ + povinné `authorize`
-**Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #73)
+**Typ:** Rozhodnuté · **PR:** #114
 
 **Kontext:** Roly `member`/`owner`/`admin` (`enum` na `User`) a prvé policy.
 
