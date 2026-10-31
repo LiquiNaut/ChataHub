@@ -20,6 +20,23 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 
 ---
 
+## 2026-10-31 — Dependabot mesačne a zoskupene, zapnuté security updates
+**Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #107)
+
+**Kontext:** Dependabot bežal denne pre bundler aj GitHub Actions (limit 10 PR každý) – naraz viselo
+9 PR, väčšinou patch bumpy. Dependabot alerts a security updates boli v repe vypnuté.
+
+**Rozhodnutie:** Version updates `monthly`, všetky zoskupené do jedného PR za ekosystém (`groups`).
+Zapnuté Dependabot alerts + security updates – tie chodia samostatne a hneď, mimo rozvrhu.
+
+**Dôvod:** Na 1 chatu a ~20 ľudí stačí bežné bumpy riešiť raz mesačne; úplné vypnutie by však
+stratilo bezpečnostné záplaty. Pri zoskupenom PR treba stále čítať diff `Gemfile.lock` (pozri #96).
+Mení to záznam „Ponechaný `--ensure-latest`“: nový Brakeman už nepríde do dňa → pri páde CI
+`bundle update brakeman --conservative` ručne.
+
+**Kedy prehodnotiť:** ak zoskupený PR často padá na jednom geme (vtedy ho vyňať zo skupiny), alebo
+ak ručné bumpy Brakemanu začnú otravovať (vtedy preň samostatný týždenný záznam).
+
 ## 2026-10-25 — Upgrade Rails 8.1.3 → 8.1.4 (oprava kompatibility s `json` 3)
 **Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #96)
 
