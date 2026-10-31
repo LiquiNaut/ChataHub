@@ -20,6 +20,24 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 
 ---
 
+## 2026-10-31 — `rate_limit` z Rails 8 namiesto Rack::Attack a Devise `lockable`
+**Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #112)
+
+**Kontext:** Prihlásenie a reset hesla nemali obmedzenie pokusov.
+
+**Rozhodnutie:** Vlastné `Users::SessionsController` a `Users::PasswordsController` s `rate_limit`
+podľa IP: prihlásenie 10 / 3 min, reset hesla 5 / 15 min. Po prekročení sa formulár znova zobrazí
+s HTTP 429 a slovenskou hláškou. Test beží na `:memory_store` (čistí sa pred každým testom), lebo
+`:null_store` nič nepočíta.
+
+**Dôvod:** `rate_limit` je vstavaný a stačí na ~20 ľudí – Rack::Attack netreba. Devise `lockable`
+nechceme: útočník by vedel zamknúť cudzí účet. Limit je dosť vysoký, aby rodina za jednou Wi-Fi
+nenarazila pri bežných preklepoch.
+
+**Kedy prehodnotiť:** pri deployi (M3) – počítadlá sú v `Rails.cache`, ktorý v produkcii ešte nie je
+nastavený; musí byť zdieľaný medzi procesmi (Solid Cache) a `request.remote_ip` musí za proxy vracať
+skutočnú IP klienta, inak limit platí pre všetkých naraz.
+
 ## 2026-10-31 — `devise_invitable` 2.0, nie 3.0
 **Typ:** Rozhodnuté · **PR:** #117
 
