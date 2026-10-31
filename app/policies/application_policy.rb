@@ -1,4 +1,5 @@
-# Deny by default, policies allow explicitly
+# frozen_string_literal: true
+
 class ApplicationPolicy
   attr_reader :user, :record
 
@@ -7,13 +8,33 @@ class ApplicationPolicy
     @record = record
   end
 
-  def index? = false
-  def show? = false
-  def create? = false
-  def new? = create?
-  def update? = false
-  def edit? = update?
-  def destroy? = false
+  def index?
+    false
+  end
+
+  def show?
+    false
+  end
+
+  def create?
+    false
+  end
+
+  def new?
+    create?
+  end
+
+  def update?
+    false
+  end
+
+  def edit?
+    update?
+  end
+
+  def destroy?
+    false
+  end
 
   class Scope
     def initialize(user, scope)
@@ -22,7 +43,7 @@ class ApplicationPolicy
     end
 
     def resolve
-      scope.none
+      raise NoMethodError, "You must define #resolve in #{self.class}"
     end
 
     private

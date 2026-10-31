@@ -11,9 +11,7 @@ RSpec.describe ApplicationPolicy do
     end
   end
 
-  it "scopes to nothing by default" do
-    create(:user)
-
-    expect(described_class::Scope.new(admin, User).resolve).to be_empty
+  it "forces each policy to define its own scope" do
+    expect { described_class::Scope.new(admin, User).resolve }.to raise_error(NoMethodError)
   end
 end

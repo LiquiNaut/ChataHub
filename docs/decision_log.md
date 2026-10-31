@@ -28,7 +28,8 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 **Rozhodnutie:** `ApplicationPolicy` zakazuje všetko, každá policy povoľuje iba explicitne.
 `after_action :verify_authorized` v `ApplicationController` (okrem Devise) – akcia bez `authorize`
 spadne; stránky bez autorizácie (úvod, styleguide) to vypínajú výslovne `skip_after_action`.
-Zamietnutie → presmerovanie späť s hláškou. Posledného admina chráni aj validácia v modeli.
+`Scope#resolve` bez definície vyhodí chybu (nie prázdny zoznam). Zamietnutie → presmerovanie späť
+s hláškou. Posledného admina chráni aj validácia v modeli.
 
 **Dôvod:** Zabudnuté `authorize` je najčastejšia diera v autorizácii – takto ju zachytí test, nie
 používateľ. Pravidlo „admin nemení vlastnú rolu“ v policy samo stačí na to, aby admin nezmizol cez UI;
