@@ -1,0 +1,20 @@
+<%= render layout: "devise/shared/auth", locals: { title: "Vitaj v ChataHube", intro: "Doplň svoje údaje a nastav si heslo." } do %>
+  <%= form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put, class: "flex flex-col gap-4" } do |form| %>
+    <%= form.hidden_field :invitation_token, readonly: true %>
+
+    <%= render "shared/field", form:, attribute: :name, label: "Meno", required: true, autocomplete: "name",
+          error: resource.errors.full_messages_for(:name).first %>
+    <%= render "shared/field", form:, attribute: :phone, label: "Telefón", type: :telephone_field, autocomplete: "tel",
+          hint: "Nepovinné, s predvoľbou krajiny, napr. +421 901 234 567.",
+          error: resource.errors.full_messages_for(:phone).first %>
+    <%= render "shared/field", form:, attribute: :password, label: "Heslo", type: :password_field,
+          autofocus: true, autocomplete: "new-password", required: true,
+          hint: "Aspoň #{@minimum_password_length} znakov.",
+          error: resource.errors.full_messages_for(:password).first %>
+    <%= render "shared/field", form:, attribute: :password_confirmation, label: "Zopakuj heslo", type: :password_field,
+          autocomplete: "new-password", required: true,
+          error: resource.errors.full_messages_for(:password_confirmation).first %>
+
+    <%= form.submit "Vstúpiť", class: ui_button_classes(:primary, block: true) %>
+  <% end %>
+<% end %>

@@ -1,0 +1,14 @@
+sk:
+  devise:
+    failure:
+      invited: "Najprv prijmi pozvánku z e-mailu."
+    invitations:
+      send_instructions: "Pozvánka odišla na %{email}."
+      invitation_token_invalid: "Odkaz na pozvánku je neplatný alebo vypršal. Požiadaj toho, kto ťa pozval, o novú."
+      updated: "Heslo je nastavené, vitaj!"
+      updated_not_active: "Heslo je nastavené."
+      no_invitations_remaining: "Už nemáš žiadne pozvánky."
+      invitation_removed: "Pozvánka bola zrušená."
+    mailer:
+      invitation_instructions:
+        subject: "Pozvánka do ChataHubu"

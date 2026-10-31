@@ -20,6 +20,24 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 
 ---
 
+## 2026-10-31 — `devise_invitable` 2.0, nie 3.0
+**Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #74)
+
+**Kontext:** `devise_invitable` 3.0.0 vyšiel 28. 10. 2026 (3 dni pred týmto rozhodnutím) – pozvánky
+presunul do vlastnej tabuľky `devise_invitations` a `User` vytvára až pri prijatí. Verzia 3.0.2 však
+pri generovaní tokenu stále kontroluje unikátnosť v stĺpci `users.invitation_token`, ktorý v novej
+schéme neexistuje → každé pozvanie padá na `PG::UndefinedColumn`.
+
+**Rozhodnutie:** `devise_invitable ~> 2.0, >= 2.0.14` (podporuje Devise 5). Stĺpce pozvánky sú priamo
+v `users`. Pozývajúci zadá e-mail a **meno** (`name` je `NOT NULL`, `validate_on_invite = true`),
+platnosť 7 dní. Owner pozýva iba `member`, admin akúkoľvek rolu (`InvitationPolicy#assignable_roles`).
+
+**Dôvod:** Overená verzia s jednoduchšou schémou; pre ~20 ľudí výhody v3 (viac pozvánok na jeden
+e-mail, viac pozývajúcich) nepotrebujeme. Opravovať čerstvú major verziu monkey-patchom nechceme.
+
+**Kedy prehodnotiť:** keď v3 dozrie (opravené generovanie tokenu, pár patch verzií) – prechod cez
+`devise_invitable:upgrade User`. Nová major verzia nemusí mať chyby, ale nech má aspoň pár týždňov.
+
 ## 2026-10-31 — Pundit „všetko zakázané“ + povinné `authorize`
 **Typ:** Rozhodnuté · **PR:** #114
 

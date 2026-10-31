@@ -10,6 +10,9 @@
     </div>
     <%= render layout: "shared/card", locals: { class: "flex flex-col gap-4" } do %>
       <p class="text-base text-muted">Kalendár a rezervácie tu pribudnú čoskoro.</p>
+      <% if policy(:invitation).create? %>
+        <%= link_to "Pozvať člena", new_user_invitation_path, class: ui_button_classes(:primary) %>
+      <% end %>
       <%= button_to "Odhlásiť sa", destroy_user_session_path, method: :delete, class: ui_button_classes(:secondary) %>
     <% end %>
   </main>
