@@ -12,6 +12,6 @@
 if Rails.env.development?
   User.find_or_create_by!(email: "admin@chatahub.test") do |user|
     user.name = "Admin"
-    user.password = "heslo-na-chatu"
+    user.password = "123456789"
   end
 end
