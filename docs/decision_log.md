@@ -21,7 +21,7 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 ---
 
 ## 2026-10-31 — Devise bez registrácie, paranoid mode, telefón bez extra gemu
-**Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #72)
+**Typ:** Rozhodnuté · **PR:** #110
 
 **Kontext:** Prvý `User` model a prihlásenie e-mail + heslo.
 
@@ -38,7 +38,7 @@ mať české číslo.
 **Kedy prehodnotiť:** ak SMS (Twilio) začnú padať na neplatných číslach → `phonelib`.
 
 ## 2026-10-31 — Pridané `rails-i18n` a `letter_opener_web`
-**Typ:** Pridané · **PR:** _doplniť_ (issue #72)
+**Typ:** Pridané · **PR:** #110
 
 **Kontext:** UI je po slovensky (`default_locale = :sk`), Devise posiela e-maily (reset hesla,
 neskôr pozvánky #74).
