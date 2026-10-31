@@ -20,6 +20,23 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 
 ---
 
+## 2026-10-31 — Pundit „všetko zakázané“ + povinné `authorize`
+**Typ:** Rozhodnuté · **PR:** #114
+
+**Kontext:** Roly `member`/`owner`/`admin` (`enum` na `User`) a prvé policy.
+
+**Rozhodnutie:** `ApplicationPolicy` zakazuje všetko, každá policy povoľuje iba explicitne.
+`after_action :verify_authorized` v `ApplicationController` (okrem Devise) – akcia bez `authorize`
+spadne; stránky bez autorizácie (úvod, styleguide) to vypínajú výslovne `skip_after_action`.
+`Scope#resolve` bez definície vyhodí chybu (nie prázdny zoznam). Zamietnutie → presmerovanie späť
+s hláškou. Posledného admina chráni aj validácia v modeli.
+
+**Dôvod:** Zabudnuté `authorize` je najčastejšia diera v autorizácii – takto ju zachytí test, nie
+používateľ. Pravidlo „admin nemení vlastnú rolu“ v policy samo stačí na to, aby admin nezmizol cez UI;
+validácia v modeli kryje aj konzolu a budúci kód.
+
+**Kedy prehodnotiť:** —
+
 ## 2026-10-31 — Devise bez registrácie, paranoid mode, telefón bez extra gemu
 **Typ:** Rozhodnuté · **PR:** #110
 

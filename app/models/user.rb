@@ -10,6 +10,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  role                   :integer          default(0), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -24,8 +25,17 @@ class User < ApplicationRecord
   # No :registerable, accounts come from invitations
   devise :database_authenticatable, :recoverable, :rememberable, :validatable
 
+  enum :role, { member: 0, owner: 1, admin: 2 }, default: :member, validate: true
+
   normalizes :phone, with: ->(phone) { phone.gsub(/[\s\-()]/, "").sub(/\A00/, "+").presence }
 
   validates :name, presence: true
   validates :phone, format: { with: PHONE_FORMAT }, allow_nil: true
+  validate :keeps_an_admin, if: -> { role_changed? && role_was == "admin" }
+
+  private
+
+  def keeps_an_admin
+    errors.add(:role, "posledný admin nemôže prísť o rolu") unless User.admin.where.not(id:).exists?
+  end
 end

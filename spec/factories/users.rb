@@ -10,6 +10,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  role                   :integer          default(0), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -24,5 +25,13 @@ FactoryBot.define do
     sequence(:email) { |n| "user#{n}@example.com" }
     password { "heslo-na-chatu" }
     phone { "+421901234567" }
+
+    trait :owner do
+      role { :owner }
+    end
+
+    trait :admin do
+      role { :admin }
+    end
   end
 end
