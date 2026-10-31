@@ -1,0 +1,7 @@
+<p>Ahoj <%= @resource.name %>,</p>
+
+<p><%= @resource.invited_by&.name || "Niekto z rodiny" %> ťa pozýva do ChataHubu – rezervácií našej chaty.</p>
+
+<p><%= link_to "Prijať pozvánku", accept_invitation_url(@resource, invitation_token: @token) %></p>
+
+<p>Pozvánka platí do <%= l(@resource.invitation_due_at, format: "%-d. %-m. %Y o %H:%M") %>. Ak ju nechceš prijať, e-mail ignoruj – účet sa bez nastavenia hesla nevytvorí.</p>

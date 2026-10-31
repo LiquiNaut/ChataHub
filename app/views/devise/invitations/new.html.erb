@@ -1,0 +1,23 @@
+<%= render layout: "devise/shared/auth", locals: { title: "Pozvať do ChataHubu", intro: "Pozvaný dostane e-mail s odkazom, platí 7 dní." } do %>
+  <%= form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post, class: "flex flex-col gap-4" } do |form| %>
+    <%= render "shared/field", form:, attribute: :email, label: "E-mail", type: :email_field,
+          autofocus: true, autocomplete: "off", required: true,
+          error: resource.errors.full_messages_for(:email).first %>
+    <%= render "shared/field", form:, attribute: :name, label: "Meno", required: true,
+          hint: "Pozvaný si ho môže upraviť.",
+          error: resource.errors.full_messages_for(:name).first %>
+
+    <% roles = policy(:invitation).assignable_roles %>
+    <% if roles.many? %>
+      <div class="flex flex-col gap-1.5">
+        <%= form.label :role, "Rola", class: "text-sm font-semibold" %>
+        <%= form.select :role, roles.map { |role| [ t("roles.#{role}"), role ] }, {},
+              class: "h-12 rounded-xl border border-field bg-surface px-3.5 text-base text-ink focus:outline-2 focus:outline-accent" %>
+      </div>
+    <% end %>
+
+    <%= form.submit "Poslať pozvánku", class: ui_button_classes(:primary, block: true) %>
+  <% end %>
+
+  <%= link_to "Späť", root_path, class: ui_button_classes(:ghost) %>
+<% end %>

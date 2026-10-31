@@ -44,6 +44,7 @@ gem "thruster", require: false
 
 # Authentication & Authorization
 gem "devise"
+gem "devise_invitable", "~> 2.0", ">= 2.0.14"
 gem "pundit"
 gem "rails-i18n", "~> 8.1"
 

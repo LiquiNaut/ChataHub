@@ -10,3 +10,7 @@ sk:
         password: "Heslo"
         password_confirmation: "Potvrdenie hesla"
         reset_password_token: "Odkaz na zmenu hesla"
+  roles:
+    member: "Člen"
+    owner: "Majiteľ"
+    admin: "Admin"

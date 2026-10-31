@@ -40,6 +40,7 @@ RSpec.configure do |config|
   # build/create without FactoryBot prefix
   config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include ActiveSupport::Testing::TimeHelpers
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [
@@ -76,6 +77,8 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
+
+RSpec::Matchers.define_negated_matcher :not_change, :change
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
