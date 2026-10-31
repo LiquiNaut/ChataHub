@@ -5,8 +5,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project
 
 ChataHub is a Rails 8 family cabin reservation system ("first come, first served" booking with Stripe
-payments, Twilio SMS notifications, weather and calendar integration, and photo management). The project
-is in early scaffolding stage — only the `Cabin` model exists so far.
+payments, Twilio SMS notifications, weather and calendar integration, and photo management). Users,
+roles and invitations are done (M1, `v0.1.0`); reservations come next.
 
 See `docs/chatahub_project_plan.md` (feature/roadmap) and `docs/project_structure_patterns.md` (intended
 architecture/design patterns) for the full target design before adding new domains.
@@ -57,7 +57,9 @@ See the "Technické rozhodnutia" section of `docs/chatahub_project_plan.md` for 
 - Hotwire (Turbo + Stimulus) + Tailwind CSS 4.x
 - Propshaft asset pipeline — **no Sprockets** (sprockets-rails + Propshaft together break boot
   with a `Propshaft::Assembly` TypeError — never re-add sprockets-rails)
-- Devise + Pundit for auth/authorization (invite-only; the `omniauth*` gems are not used for login)
+- Devise + Pundit for auth/authorization (invite-only; the `omniauth*` gems are not used for login).
+  `devise_invitable` is pinned to **2.0** — 3.0.2 breaks every invite (see decision log)
+- `rails-i18n` (UI is Slovak, `default_locale = :sk`); dev emails open at `/letter_opener`
 - Active Storage + `image_processing` 2.x for photo variants — **`ruby-vips` must stay
   `require: false`**: autoloading it at boot loads libvips via FFI and crashes environments without
   it (CI runners). Active Storage requires it lazily.
@@ -153,9 +155,11 @@ hex values in views. Touch targets ≥ 44 px, text contrast ≥ 4.5:1.
 
 Keep this section short and update it at every milestone.
 
-Only the `Cabin` model is implemented (with RSpec + factory). No User/Devise, Reservation, or
-Payment models exist yet. Next milestone: Devise authentication + User model (invite-only
-registration, roles), then Reservation core with overlap prevention (TDD).
+**M1 – Používatelia (`v0.1.0`) is done:** `Cabin`, and `User` with Devise login, password reset,
+roles (`member`/`owner`/`admin`, Pundit deny-by-default + `verify_authorized`), invitations
+(`devise_invitable`) and `rate_limit` on login/reset. `/` is a placeholder home page.
+No Reservation or Payment models yet. **Next: M2 – Rezervácie** (#75 model → #76 overlap DB
+constraint → #77 create/cancel → #78 no-show, #79 calendar, #91 companions), TDD.
 
 ## Development Environment
 
