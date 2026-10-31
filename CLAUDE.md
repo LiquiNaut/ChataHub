@@ -79,7 +79,8 @@ See the "Technické rozhodnutia" section of `docs/chatahub_project_plan.md` for 
 - Run a single example: `bundle exec rspec spec/models/cabin_spec.rb:14`
 - Lint: `bundle exec rubocop` (Omakase style via `rubocop-rails-omakase`)
 - Security scan: `bundle exec brakeman`
-- Annotate model schema comments: `bin/rails annotate` (via the `annot8` gem)
+- Annotate model schema comments: `bin/rails annotate_models` (via the `annot8` gem) — also runs
+  automatically after `db:migrate` in development
 
 ## Workflow
 
@@ -128,8 +129,8 @@ and record it in the decision log. As features are built out, follow these conve
   `Payments::ProcessService`) — keep controllers and models thin.
 - **Strategy pattern** for payment processing variants (`Payments::StrategyService`).
 - Background work (SMS, email, weather fetch, calendar sync) goes through Sidekiq jobs in `app/jobs/`.
-- Models carry `# == Schema Information` annotation comments (kept in sync via `annot8`);
-  regenerate after migrations rather than hand-editing them.
+- Models carry `# == Schema Information` annotation comments (kept in sync via `annot8`, which
+  re-annotates after every `db:migrate`) — never hand-edit them; `just annotate` refreshes them.
 
 ## UI
 
