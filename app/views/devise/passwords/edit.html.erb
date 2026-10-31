@@ -1,0 +1,21 @@
+<%= render layout: "devise/shared/auth", locals: { title: "Nové heslo" } do %>
+  <%= form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "flex flex-col gap-4" } do |form| %>
+    <%= form.hidden_field :reset_password_token %>
+
+    <% if resource.errors[:reset_password_token].any? %>
+      <p role="alert" class="rounded-xl bg-danger px-4 py-3 text-sm font-medium text-danger-ink">
+        <%= resource.errors.full_messages_for(:reset_password_token).first %>
+      </p>
+    <% end %>
+
+    <%= render "shared/field", form:, attribute: :password, label: "Nové heslo", type: :password_field,
+          autofocus: true, autocomplete: "new-password", required: true,
+          hint: "Aspoň #{@minimum_password_length} znakov.",
+          error: resource.errors.full_messages_for(:password).first %>
+    <%= render "shared/field", form:, attribute: :password_confirmation, label: "Zopakuj heslo", type: :password_field,
+          autocomplete: "new-password", required: true,
+          error: resource.errors.full_messages_for(:password_confirmation).first %>
+
+    <%= form.submit "Uložiť heslo", class: ui_button_classes(:primary, block: true) %>
+  <% end %>
+<% end %>

@@ -1,0 +1,17 @@
+<%= render layout: "devise/shared/auth", locals: { title: "Prihlásiť sa", intro: "Rezervácie chaty pre rodinu." } do %>
+  <%= form_for resource, as: resource_name, url: session_path(resource_name), html: { class: "flex flex-col gap-4" } do |form| %>
+    <%= render "shared/field", form:, attribute: :email, label: "E-mail", type: :email_field,
+          autofocus: true, autocomplete: "email", required: true %>
+    <%= render "shared/field", form:, attribute: :password, label: "Heslo", type: :password_field,
+          autocomplete: "current-password", required: true %>
+
+    <label class="flex min-h-11 items-center gap-3 text-[15px]">
+      <%= form.check_box :remember_me, class: "size-5 accent-accent" %>
+      Zapamätať si ma
+    </label>
+
+    <%= form.submit "Prihlásiť sa", class: ui_button_classes(:primary, block: true) %>
+  <% end %>
+
+  <%= link_to "Zabudol si heslo?", new_password_path(resource_name), class: ui_button_classes(:ghost) %>
+<% end %>

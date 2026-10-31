@@ -1,0 +1,15 @@
+<%# locals: (title:, intro: nil) %>
+<% content_for :title, "#{title} – ChataHub" %>
+
+<main class="mx-auto flex min-h-[80vh] w-full max-w-md flex-col justify-center gap-6 px-4 py-10">
+  <div class="flex flex-col gap-2 text-center">
+    <p class="text-[13px] font-bold uppercase tracking-[0.08em] text-accent">ChataHub</p>
+    <h1 class="text-3xl font-bold"><%= title %></h1>
+    <% if intro %>
+      <p class="text-base text-muted"><%= intro %></p>
+    <% end %>
+  </div>
+  <%= render layout: "shared/card", locals: { class: "flex flex-col gap-5" } do %>
+    <%= yield %>
+  <% end %>
+</main>

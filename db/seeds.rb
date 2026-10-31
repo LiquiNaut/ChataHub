@@ -7,3 +7,11 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+# Dev login, role arrives with #73
+if Rails.env.development?
+  User.find_or_create_by!(email: "admin@chatahub.test") do |user|
+    user.name = "Admin"
+    user.password = "heslo-na-chatu"
+  end
+end

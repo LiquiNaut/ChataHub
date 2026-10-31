@@ -1,0 +1,10 @@
+<% if notice || alert %>
+  <div class="mx-auto flex max-w-[1120px] flex-col gap-2 px-4 pt-4 md:px-6">
+    <% if notice %>
+      <p role="status" class="rounded-xl bg-mine px-4 py-3 text-sm font-medium text-mine-ink"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p role="alert" class="rounded-xl bg-danger px-4 py-3 text-sm font-medium text-danger-ink"><%= alert %></p>
+    <% end %>
+  </div>
+<% end %>

@@ -20,6 +20,37 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 
 ---
 
+## 2026-10-31 — Devise bez registrácie, paranoid mode, telefón bez extra gemu
+**Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #72)
+
+**Kontext:** Prvý `User` model a prihlásenie e-mail + heslo.
+
+**Rozhodnutie:** Devise moduly `database_authenticatable`, `recoverable`, `rememberable`,
+`validatable` – bez `registerable` (route `/users/sign_up` neexistuje). `config.paranoid = true`,
+heslo min. 8 znakov. Telefón voliteľný, normalizovaný (`normalizes`: preč medzery/pomlčky/zátvorky,
+`00` → `+`) a validovaný regexom na E.164; číslo bez predvoľby (`0901…`) je nevalidné.
+
+**Dôvod:** Paranoid mode dáva rovnakú hlášku pre existujúci aj neexistujúci e-mail (pri prihlásení
+aj resete hesla) – neprezradí, kto má účet. Gem `phonelib` (Google libphonenumber) by vedel overiť
+reálne čísla, ale pre ~20 ľudí stačí formát; `0901…` neprevádzame na `+421`, lebo časť rodiny môže
+mať české číslo.
+
+**Kedy prehodnotiť:** ak SMS (Twilio) začnú padať na neplatných číslach → `phonelib`.
+
+## 2026-10-31 — Pridané `rails-i18n` a `letter_opener_web`
+**Typ:** Pridané · **PR:** _doplniť_ (issue #72)
+
+**Kontext:** UI je po slovensky (`default_locale = :sk`), Devise posiela e-maily (reset hesla,
+neskôr pozvánky #74).
+
+**Rozhodnutie:** `rails-i18n` (slovenské hlášky validácií, názvy mesiacov a dní) a v development
+`letter_opener_web` – odoslané e-maily sa neposielajú, ale zobrazia na `/letter_opener`.
+
+**Dôvod:** Preklady validácií a dátumov ručne písať nechceme (kalendár ich bude potrebovať).
+Bez `letter_opener_web` by sa odkaz na reset hesla dal nájsť iba v logu kontajnera.
+
+**Kedy prehodnotiť:** —
+
 ## 2026-10-31 — Dependabot version updates vypnuté do dokončenia aplikácie
 **Typ:** Odstránené · **PR:** #108
 

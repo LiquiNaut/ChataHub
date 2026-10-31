@@ -10,27 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_24_142502) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_31_113236) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "cabins", force: :cascade do |t|
-    t.integer "capacity", null: false
-    t.datetime "created_at", null: false
-    t.string "location", null: false
     t.string "name", null: false
-    t.integer "price_per_night_cents", null: false
+    t.integer "capacity", null: false
+    t.string "location", null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "price_per_night_cents", null: false
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
-    t.datetime "created_at"
-    t.string "scope"
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
     t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "name", null: false
+    t.string "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 end
