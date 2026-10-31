@@ -1,0 +1,11 @@
+<%= render layout: "devise/shared/auth", locals: { title: "Zabudnuté heslo", intro: "Pošleme ti e-mail s odkazom na nové heslo." } do %>
+  <%= form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "flex flex-col gap-4" } do |form| %>
+    <%= render "shared/field", form:, attribute: :email, label: "E-mail", type: :email_field,
+          autofocus: true, autocomplete: "email", required: true,
+          error: resource.errors.full_messages_for(:email).first %>
+
+    <%= form.submit "Poslať odkaz", class: ui_button_classes(:primary, block: true) %>
+  <% end %>
+
+  <%= link_to "Späť na prihlásenie", new_session_path(resource_name), class: ui_button_classes(:ghost) %>
+<% end %>

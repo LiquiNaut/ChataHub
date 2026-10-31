@@ -45,6 +45,7 @@ gem "thruster", require: false
 # Authentication & Authorization
 gem "devise"
 gem "pundit"
+gem "rails-i18n", "~> 8.1"
 
 # Background Jobs
 gem "sidekiq"
@@ -97,6 +98,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "letter_opener_web"
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
   gem "listen"
