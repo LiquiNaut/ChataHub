@@ -1,0 +1,18 @@
+<% content_for :title, "ChataHub" %>
+
+<div class="flex min-h-screen flex-col">
+  <div class="hidden md:block"><%= render "shared/desktop_header", items: main_navigation_items, active: :calendar %></div>
+
+  <main class="mx-auto flex w-full max-w-[1120px] flex-1 flex-col gap-6 px-4 py-8 md:px-6">
+    <div class="flex items-center justify-between gap-4">
+      <h1 class="text-3xl font-bold">Ahoj, <%= current_user.name %></h1>
+      <div class="md:hidden"><%= render "shared/theme_toggle" %></div>
+    </div>
+    <%= render layout: "shared/card", locals: { class: "flex flex-col gap-4" } do %>
+      <p class="text-base text-muted">Kalendár a rezervácie tu pribudnú čoskoro.</p>
+      <%= button_to "Odhlásiť sa", destroy_user_session_path, method: :delete, class: ui_button_classes(:secondary) %>
+    <% end %>
+  </main>
+
+  <div class="sticky bottom-0 md:hidden"><%= render "shared/mobile_nav", items: main_navigation_items, active: :calendar %></div>
+</div>

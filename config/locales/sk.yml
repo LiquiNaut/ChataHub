@@ -1,0 +1,12 @@
+sk:
+  activerecord:
+    models:
+      user: "Používateľ"
+    attributes:
+      user:
+        email: "E-mail"
+        name: "Meno"
+        phone: "Telefón"
+        password: "Heslo"
+        password_confirmation: "Potvrdenie hesla"
+        reset_password_token: "Odkaz na zmenu hesla"

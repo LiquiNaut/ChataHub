@@ -1,0 +1,33 @@
+# Only modules we use; see devise.en.yml for the rest
+sk:
+  devise:
+    failure:
+      already_authenticated: "Už si prihlásený."
+      inactive: "Tvoj účet ešte nie je aktívny."
+      invalid: "Nesprávny e-mail alebo heslo."
+      not_found_in_database: "Nesprávny e-mail alebo heslo."
+      timeout: "Platnosť prihlásenia vypršala, prihlás sa znova."
+      unauthenticated: "Najprv sa prihlás."
+    mailer:
+      reset_password_instructions:
+        subject: "ChataHub – zmena hesla"
+      password_change:
+        subject: "ChataHub – heslo bolo zmenené"
+    passwords:
+      no_token: "Na túto stránku sa dostaneš iba cez odkaz z e-mailu na zmenu hesla. Skontroluj, či si skopíroval celý odkaz."
+      send_instructions: "Do pár minút ti príde e-mail s odkazom na zmenu hesla."
+      send_paranoid_instructions: "Ak e-mail patrí k účtu, do pár minút ti príde odkaz na zmenu hesla."
+      updated: "Heslo je zmenené, si prihlásený."
+      updated_not_active: "Heslo je zmenené."
+    sessions:
+      signed_in: "Si prihlásený."
+      signed_out: "Si odhlásený."
+      already_signed_out: "Si odhlásený."
+  errors:
+    messages:
+      expired: "vypršal, požiadaj o nový"
+      not_found: "sa nenašiel"
+      not_saved:
+        one: "Formulár obsahuje 1 chybu:"
+        few: "Formulár obsahuje %{count} chyby:"
+        other: "Formulár obsahuje %{count} chýb:"
