@@ -133,6 +133,15 @@ RSpec.describe "Invitations", type: :request do
       expect(response).to have_http_status(:unprocessable_content)
     end
 
+    it "tells a signed-in user to sign out first" do
+      sign_in owner
+
+      get accept_user_invitation_path(invitation_token: token)
+
+      expect(response).to redirect_to(root_path)
+      expect(flash[:alert]).to eq("Si prihlásený ako #{owner.email}. Na prijatie pozvánky sa odhlás a otvor odkaz znova.")
+    end
+
     it "shows the accept form with the name prefilled" do
       get accept_user_invitation_path(invitation_token: token)
 
