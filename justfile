@@ -48,7 +48,7 @@ migrate:
 
 # Refresh model schema annotations (annot8)
 annotate:
-    docker compose exec app bin/rails annotate
+    docker compose exec app bin/rails annotate_models
 
 # --- Tests & checks (mirrors CI) ---
 
