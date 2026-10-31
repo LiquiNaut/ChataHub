@@ -8,10 +8,11 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-# Dev login, role arrives with #73
+# Dev login
 if Rails.env.development?
   User.find_or_create_by!(email: "admin@chatahub.test") do |user|
     user.name = "Admin"
     user.password = "123456789"
+    user.role = :admin
   end
 end
