@@ -20,6 +20,23 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 
 ---
 
+## 2026-10-31 — Dependabot version updates vypnuté do dokončenia aplikácie
+**Typ:** Odstránené · **PR:** #108
+
+**Kontext:** Dependabot bežal denne pre bundler aj GitHub Actions (limit 10 PR každý) – naraz viselo
+9 PR, väčšinou patch bumpy. Dependabot alerts a security updates boli v repe vypnuté.
+
+**Rozhodnutie:** Zmazaný `.github/dependabot.yml` (žiadne bežné bumpy). Zapnuté Dependabot alerts
++ security updates – PR prídu len pri známej zraniteľnosti (CVE).
+
+**Dôvod:** Kým aplikácia nie je hotová a nebeží verejne, bežné bumpy sú len šum a riziko (pozri #96).
+Bezpečnostné záplaty sú zriedkavé a lacné, preto ostávajú. Mení to záznam „Ponechaný
+`--ensure-latest`“: nový Brakeman už nepríde automaticky → pri páde CI ručne
+`bundle update brakeman --conservative`.
+
+**Kedy prehodnotiť:** po dokončení aplikácie, najneskôr pred prvým deployom (M3) – vrátiť
+`dependabot.yml` s mesačným rozvrhom a zoskupenými bumpmi (`groups`).
+
 ## 2026-10-25 — Upgrade Rails 8.1.3 → 8.1.4 (oprava kompatibility s `json` 3)
 **Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #96)
 
