@@ -21,7 +21,7 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 ---
 
 ## 2026-10-31 — `rate_limit` z Rails 8 namiesto Rack::Attack a Devise `lockable`
-**Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #112)
+**Typ:** Rozhodnuté · **PR:** #118
 
 **Kontext:** Prihlásenie a reset hesla nemali obmedzenie pokusov.
 
