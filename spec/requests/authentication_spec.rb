@@ -17,6 +17,12 @@ RSpec.describe "Authentication", type: :request do
       expect(response.body).to include("Prihlásiť sa")
     end
 
+    it "can switch the theme on the login page" do
+      get new_user_session_path
+
+      expect(response.body).to include('data-action="theme#toggle"')
+    end
+
     it "has no sign-up route" do
       get "/users/sign_up"
 
