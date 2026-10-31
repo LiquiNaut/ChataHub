@@ -21,7 +21,7 @@ pridaj nový záznam (starý nemaž ani neprepisuj).
 ---
 
 ## 2026-10-31 — `devise_invitable` 2.0, nie 3.0
-**Typ:** Rozhodnuté · **PR:** _doplniť_ (issue #74)
+**Typ:** Rozhodnuté · **PR:** #117
 
 **Kontext:** `devise_invitable` 3.0.0 vyšiel 28. 10. 2026 (3 dni pred týmto rozhodnutím) – pozvánky
 presunul do vlastnej tabuľky `devise_invitations` a `User` vytvára až pri prijatí. Verzia 3.0.2 však
